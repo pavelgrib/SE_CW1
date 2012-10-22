@@ -1,0 +1,32 @@
+\documentclass[11pt]{amsart}
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\title{Analysis of JMVA}
+%\author{The Author}
+%\date{}                                           % Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+%\section{}
+%\subsection{}
+\begin{itemize}
+\item[Analysis:] Analyzed dependency matrix in IntelliJ Pro
+\item[Analysis:] Found cyclical dependencies, can be eliminated with some patterns.
+\item[Analysis:] ExactWizard is gui component
+\item[Analysis:] ExactModel is model object, passed to SoverClient which then sends to SolverDispatcher;
+\item[Suggestion:] No abstract layer between SolverClient and SolverDispatcher (use interface)
+\item[Analysis:] SolverDispatcher: solves problem by delegating problem to other classes depending on type of problem.
+\item[Analysis:] SolverAlgorithm looks very bad, too much dependency with SolverDispatcher
+\item[Suggestion:] Some classes not used at all by JMVA in jmt.analytical, so should be moved moved out to reduce dependency
+\item[Analysis:] Write a table of responsibilities of main classes and which packages they're part of
+\end{itemize}
+
+
+\end{document}  
