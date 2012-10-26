@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009) (format=pdflatex 2012.3.3)  22 OCT 2012 13:43
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009) (format=pdflatex 2012.3.3)  26 OCT 2012 16:29
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -286,20 +286,21 @@ File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 ) [1{/usr/local/texlive/2009/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 (./jmva_analysis.aux) ) 
 Here is how much of TeX's memory you used:
- 3083 strings out of 493773
- 39816 string characters out of 3145347
- 99122 words of memory out of 3000000
- 6184 multiletter control sequences out of 15000+200000
- 8294 words of font info for 32 fonts, out of 3000000 for 9000
+ 3096 strings out of 493773
+ 39979 string characters out of 3145347
+ 101122 words of memory out of 3000000
+ 6194 multiletter control sequences out of 15000+200000
+ 10786 words of font info for 42 fonts, out of 3000000 for 9000
  875 hyphenation exceptions out of 8191
- 41i,4n,26p,352b,186s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 41i,4n,26p,352b,164s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/local/texlive/2009/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmbx10.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/am
 sfonts/cm/cmr10.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmr8.pfb>
-Output written on jmva_analysis.pdf (1 page, 38603 bytes).
+onts/cm/cmr8.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmsy10.pfb>
+Output written on jmva_analysis.pdf (1 page, 49551 bytes).
 PDF statistics:
- 18 PDF objects out of 1000 (max. 8388607)
+ 22 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

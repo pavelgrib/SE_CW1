@@ -26,7 +26,21 @@
 \item[Analysis:] SolverAlgorithm looks very bad, too much dependency with SolverDispatcher
 \item[Suggestion:] Some classes not used at all by JMVA in jmt.analytical, so should be moved moved out to reduce dependency
 \item[Analysis:] Write a table of responsibilities of main classes and which packages they're part of
+\item[Cycle] gui.exact.ExactModel cycle with analytical package (Exact model depends 136 times on analytical and analytical depends 68 times on ExactModel
+\item[Design] gui package should be top layer of application rather than analytical; gui should be top of the layer and analytical should depend on it.  recommend splitting up gui and taking out ExactModel into a separate package
+\item gui contains ExactModel which depends on SolverClient (also in gui), which depends on SolverDispather (in analytical); thus if we remove ExactModel out
 \end{itemize}
 
+Code issues:
+\begin{itemize}
+\item[Naming:] Classes are poorly names (ExactWizard is a gui window), main method is obscured, 
+\item[Comments:] Sparse comments and sometimes written in Italian, making difficult to figure out what's going on; encoding issues in comments (UTF8 vs ISO-8859-1).
+\item[Methods:] Very many "solve" methods which do not do the solving but rather delegate elsewhere.
+\end{itemize}
+
+Other issues:
+\begin{itemize}
+\item[Testability:] 
+\end{itemize}
 
 \end{document}  
