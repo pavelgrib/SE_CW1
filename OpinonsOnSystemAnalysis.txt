@@ -1,0 +1,19 @@
+Analyse the system in terms of 
+
+1, Testing: test package contains tests for main functional classes in analytical and engine package. The tests' output is either empty if succeed or error message printed to screen if failed. There is a lack of end-to-end tests and unit tests in other classes.
+
+It does not use any assertion-oriented automated tests. Based on the testing style, we infer this project didn't use TDD.
+
+2. Dependency on Concretion: in this project it is often the case that 2 components are linked by direct call or reference. For example, DirectModel class calls solver classes in analytical package without any interface in between. This dependency on concretion set barriers for doing unit test with mock objects. 
+
+3. Rigidity, Fragility, Immobility: The code is hard to change because of the tight coupling between classes. The project is not implemented using interfaces. Therefore it is not easy to reuse a part of the code or plug in similar code from some other projects.
+
+4. Cohesion: in general the packages have a relatively higher cohesion than some particular classes. For example, ExactModel, designed to be "an object grouping all data describing a system", has some other responsibilities such as helper functions for calculations or validation checks.
+
+5: Cyclic dependencies: there are several dependency cycles from lower layer to higher layers. For example, between gui and analytical packages, a link from analytical package goes backwards to the ExactModel in gui package to query data. Similarly, a link from engine package goes backwards to the ExactModel querying for data. We think these two main cycle is caused by misplacing the ExactModel in the gui package (It has nothing to do with UI).
+
+others: 
+
+6: ExactWizard has a override method finish() extending Wizard class. However the developer warned do not call this method.
+
+7: The description of class is short and unclear. We often have to look through the methods' description to know what the whole class is doing. 
