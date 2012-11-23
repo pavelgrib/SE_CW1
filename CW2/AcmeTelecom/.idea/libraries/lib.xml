@@ -3,7 +3,6 @@
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/lib/junit-4.11.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/jmock-2.5.1.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/fit.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/external.jar!/" />
       <root url="file://$PROJECT_DIR$/lib/fit" />
     </CLASSES>

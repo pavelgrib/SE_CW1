@@ -1,3 +1,5 @@
+import com.acmetelecom.BillingSystem;
+
 /**
  * Created with IntelliJ IDEA.
  * User: hejun
@@ -6,4 +8,10 @@
  * To change this template use File | Settings | File Templates.
  */
 public class SystemUnderTest  {
+
+    public static BillingSystem bs = new BillingSystem();
+
+    public SystemUnderTest(){
+
+    }
 }
