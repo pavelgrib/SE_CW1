@@ -1,8 +1,5 @@
 *.DS_Store
-*.pdf
 *.class
-*.html
-*.idea
 *.iml
 *.state
 
