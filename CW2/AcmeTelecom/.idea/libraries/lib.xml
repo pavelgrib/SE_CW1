@@ -5,8 +5,12 @@
       <root url="jar://$PROJECT_DIR$/lib/jmock-2.5.1.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/fit.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/external.jar!/" />
+      <root url="file://$PROJECT_DIR$/lib/fit" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/fit/fitLibraryRunner-20070110-src.jar!/" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/lib/fit" recursive="false" />
   </library>
 </component>
