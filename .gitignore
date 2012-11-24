@@ -2,5 +2,5 @@
 out
 reports
 *.class
-.idea/workspace.xml
-.idea/libraries
+workspace.xml
+libraries
