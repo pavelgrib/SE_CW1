@@ -9,18 +9,29 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
 
-public class BillingSystem {
+public class BillingSystem implements Biller {
 
     private List<CallEvent> callLog = new ArrayList<CallEvent>();
+    private HashMap<String, Boolean> callInProgress = new HashMap<String, Boolean>();
 
+    @Override
     public void callInitiated(String caller, String callee) {
         callLog.add(new CallStart(caller, callee));
+        callInProgress.put(caller, Boolean.TRUE);
     }
 
+    @Override
     public void callCompleted(String caller, String callee) {
         callLog.add(new CallEnd(caller, callee));
+        callInProgress.put(caller, Boolean.FALSE);
     }
 
+    @Override
+    public boolean callInProgress(String caller) {
+        return callInProgress.get(caller);
+    }
+
+    @Override
     public void createCustomerBills() {
         List<Customer> customers = CentralCustomerDatabase.getInstance().getCustomers();
         for (Customer customer : customers) {
@@ -73,31 +84,5 @@ public class BillingSystem {
         }
 
         new BillGenerator().send(customer, items, MoneyFormatter.penceToPounds(totalBill));
-    }
-
-    static class LineItem {
-        private Call call;
-        private BigDecimal callCost;
-
-        public LineItem(Call call, BigDecimal callCost) {
-            this.call = call;
-            this.callCost = callCost;
-        }
-
-        public String date() {
-            return call.date();
-        }
-
-        public String callee() {
-            return call.callee();
-        }
-
-        public String durationMinutes() {
-            return "" + call.durationSeconds() / 60 + ":" + String.format("%02d", call.durationSeconds() % 60);
-        }
-
-        public BigDecimal cost() {
-            return callCost;
-        }
     }
 }

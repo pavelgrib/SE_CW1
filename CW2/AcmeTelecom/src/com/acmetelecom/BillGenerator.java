@@ -2,15 +2,17 @@ package com.acmetelecom;
 
 import com.acmetelecom.customer.Customer;
 
+import java.io.PrintStream;
 import java.util.List;
 
-public class BillGenerator {
+public class BillGenerator implements Generator {
 
-    public void send(Customer customer, List<BillingSystem.LineItem> calls, String totalBill) {
+    @Override
+    public void send(Customer customer, List<LineItem> calls, String totalBill) {
 
         Printer printer = HtmlPrinter.getInstance();
         printer.printHeading(customer.getFullName(), customer.getPhoneNumber(), customer.getPricePlan());
-        for (BillingSystem.LineItem call : calls) {
+        for (LineItem call : calls) {
             printer.printItem(call.date(), call.callee(), call.durationMinutes(), MoneyFormatter.penceToPounds(call.cost()));
         }
         printer.printTotal(totalBill);
