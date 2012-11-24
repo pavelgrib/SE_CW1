@@ -1,2 +1,6 @@
 *.DS_Store
 out
+reports
+*.class
+.idea/workspace.xml
+.idea/libraries
