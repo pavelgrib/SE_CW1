@@ -5,4 +5,10 @@ reports
 *workspace.xml
 **/.idea/workspace.xml
 **/.idea/libraries
+*misc.xml
 **/.idea/misc.xml
+*.name
+*ant.xml
+*compiler.xml
+**/.idea/copyright/profiles_settings.xml
+**/.idea/*.xml
