@@ -13,6 +13,6 @@ public class GivenTheSystemIsInitialized extends Fixture {
 
     @Override
 	public void doTable(Parse p) {
-        //
+        SystemUnderTest.os.reset();
 	}
 }

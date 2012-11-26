@@ -24,14 +24,16 @@ public class GivenTheseCallsAreMade extends ColumnFixture{
 
     @Override
     public void doRows(Parse rows) {
+        SystemUnderTest.setBs();
         super.doRows(rows);
     }
 
     @Override
     public void execute() throws Exception
     {
+        SystemUnderTest.bs.setTime(System.currentTimeMillis());
         SystemUnderTest.bs.callInitiated(From,To);
-        Thread.sleep(Duration * 1000);
+        SystemUnderTest.bs.setTime(SystemUnderTest.bs.getTime()+Duration*1000);
         SystemUnderTest.bs.callCompleted(From,To);
 
     }

@@ -1,4 +1,11 @@
+import com.acmetelecom.Biller;
 import com.acmetelecom.BillingSystem;
+import fake.FakeBillingSystem;
+import fake.FakeGenerator;
+import fake.FakePrinter;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 /**
  * Created with IntelliJ IDEA.
@@ -9,10 +16,20 @@ import com.acmetelecom.BillingSystem;
  */
 public class SystemUnderTest  {
 
-    public static BillingSystem bs = new BillingSystem();
+    public static ByteArrayOutputStream os = new ByteArrayOutputStream();
+    public static PrintStream ps = new PrintStream(os);
+    public static FakePrinter fakePrinter = new FakePrinter(ps);
+    public static FakeGenerator fakeGenerator = new FakeGenerator(fakePrinter);
+
+    public static FakeBillingSystem bs ;
 
 
     public SystemUnderTest(){
 
     }
+
+    public static void setBs(){
+        bs = new FakeBillingSystem(fakeGenerator);
+    }
+
 }

@@ -32,7 +32,11 @@ public class TheBillShows extends RowFixture{
         SystemUnderTest.bs.createCustomerBills();
 
         List<Row> rows = new ArrayList<Row>();
-        rows.add(new Row(rows.size() + 1, "Total"));
+        String[] out = SystemUnderTest.os.toString().trim().split("\n");
+        for (int i=0; i<out.length;i++){
+            rows.add(new Row(i+1,out[i]));
+        }
+        //rows.add(new Row(rows.size() + 1, SystemUnderTest.os.toString()));
         //TODO get contents from Printer and add to rows
         return rows.toArray();
     }

@@ -1,8 +1,6 @@
 package fake;
 
-import com.acmetelecom.BillingSystem;
-import com.acmetelecom.Generator;
-import com.acmetelecom.LineItem;
+import com.acmetelecom.*;
 import com.acmetelecom.customer.Customer;
 
 import java.io.PrintStream;
@@ -17,8 +15,18 @@ import java.util.List;
  */
 public class FakeGenerator implements Generator {
 
+    private Printer printer;
+
+    public FakeGenerator(Printer printer){
+         this.printer = printer;
+    }
+
     @Override
     public void send(Customer customer, List<LineItem> calls, String totalBill) {
-
+//        printer.printHeading(customer.getFullName(), customer.getPhoneNumber(), customer.getPricePlan());
+//        for (LineItem call : calls) {
+//            printer.printItem(call.date(), call.callee(), call.durationMinutes(), MoneyFormatter.penceToPounds(call.cost()));
+//        }
+        printer.printTotal(totalBill);
     }
 }
