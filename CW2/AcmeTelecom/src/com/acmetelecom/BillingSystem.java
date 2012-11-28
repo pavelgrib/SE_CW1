@@ -4,6 +4,9 @@ import com.acmetelecom.customer.CentralCustomerDatabase;
 import com.acmetelecom.customer.CentralTariffDatabase;
 import com.acmetelecom.customer.Customer;
 import com.acmetelecom.customer.Tariff;
+import com.acmetelecom.rate.PeakSeperateOffPeakRateEngine;
+import com.acmetelecom.rate.ProfitableRateEngine;
+import com.acmetelecom.rate.RateEngine;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -69,13 +72,15 @@ public class BillingSystem implements Biller {
             Tariff tariff = CentralTariffDatabase.getInstance().tarriffFor(customer);
 
             BigDecimal cost;
+            RateEngine rateEngine = new ProfitableRateEngine();
+            cost = rateEngine.calculateCost(call ,tariff);
 
-            DaytimePeakPeriod peakPeriod = new DaytimePeakPeriod();
-            if (peakPeriod.offPeak(call.startTime()) && peakPeriod.offPeak(call.endTime()) && call.durationSeconds() < 12 * 60 * 60) {
-                cost = new BigDecimal(call.durationSeconds()).multiply(tariff.offPeakRate());
-            } else {
-                cost = new BigDecimal(call.durationSeconds()).multiply(tariff.peakRate());
-            }
+//            DaytimePeakPeriod peakPeriod = new DaytimePeakPeriod();
+//            if (peakPeriod.offPeak(call.startTime()) && peakPeriod.offPeak(call.endTime()) && call.durationSeconds() < 12 * 60 * 60) {
+//                cost = new BigDecimal(call.durationSeconds()).multiply(tariff.offPeakRate());
+//            } else {
+//                cost = new BigDecimal(call.durationSeconds()).multiply(tariff.peakRate());
+//            }
 
             cost = cost.setScale(0, RoundingMode.HALF_UP);
             BigDecimal callCost = cost;

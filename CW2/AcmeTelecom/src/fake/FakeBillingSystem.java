@@ -5,6 +5,7 @@ import com.acmetelecom.customer.CentralCustomerDatabase;
 import com.acmetelecom.customer.CentralTariffDatabase;
 import com.acmetelecom.customer.Customer;
 import com.acmetelecom.customer.Tariff;
+import com.acmetelecom.rate.DaytimePeakPeriod;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -36,10 +37,6 @@ public class FakeBillingSystem implements Biller{
 
     public long getTime(){
         return time;
-    }
-
-    public int getCallLogSize(){
-        return callLog.size();
     }
 
     @Override

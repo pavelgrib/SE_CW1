@@ -2,9 +2,10 @@
 out
 reports
 *.class
+*.state
 *workspace.xml
 **/.idea/workspace.xml
-**/.idea/libraries/*.xml
+**/.idea/libraries/*
 *misc.xml
 **/.idea/misc.xml
 *.name
