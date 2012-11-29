@@ -5,7 +5,8 @@ reports
 *.state
 *workspace.xml
 **/.idea/workspace.xml
-**/.idea/libraries/*
+**/.idea/libraries
+**/libraries/*.xml
 *misc.xml
 **/.idea/misc.xml
 *.name
