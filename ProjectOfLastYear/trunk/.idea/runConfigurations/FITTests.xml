@@ -1,5 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="FITTests" type="Application" factoryName="Application">
+    <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
     <option name="MAIN_CLASS_NAME" value="fitlibrary.runner.FolderRunner" />
     <option name="VM_PARAMETERS" value="-javaagent:&quot;lib/jmock/jdave-unfinalizer-1.1.jar&quot;" />
     <option name="PROGRAM_PARAMETERS" value="doc/fit-docs/  doc/fit-reports" />
