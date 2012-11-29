@@ -6,16 +6,22 @@ import com.acmetelecom.Generator;
 import com.acmetelecom.LineItem;
 import com.acmetelecom.customer.Customer;
 import com.acmetelecom.customer.CustomerDatabase;
+import com.acmetelecom.customer.Tariff;
 import com.acmetelecom.customer.TariffLibrary;
 import com.acmetelecom.rate.RateEngine;
+import org.hamcrest.Matcher;
+import org.hamcrest.core.IsAnything;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.ArrayList;
+import java.math.BigDecimal;
+import java.util.LinkedList;
 import java.util.List;
+
+import static org.hamcrest.Matchers.equalTo;
 
 /**
  * Created with IntelliJ IDEA.
@@ -43,6 +49,12 @@ public class LogicalBillingSystemTest {
         return new org.hamcrest.core.IsAnything<Call>();
     }
 
+    // Matcher for any tariff
+    private  static Matcher<Tariff> anyTariff() {
+        return new IsAnything<Tariff>();
+    }
+
+
 
     Mockery context = new Mockery();
     CustomerDatabase customerDB = context.mock(CustomerDatabase.class);
@@ -56,17 +68,63 @@ public class LogicalBillingSystemTest {
     Customer cus2 = new Customer("Bob","987654321","");
     Customer cus3 = new Customer("Charley", "111111111", "");
 
+
+
+
     @Test
-    public void createAllCustomersBills() {
-//        final List<Customer> customerList = new ArrayList<Customer>();
-//        customerList.add(cus1);
-//        customerList.add(cus2);
-//
-//        context.checking(new Expectations() {{
-//            allowing(customerDB.getCustomers()).equals(customerList);
-//            oneOf(generator).send(with(equal(cus1)),
-//
-//        }});
-//        .createCustomerBills();
+    //test of create bills for all customers
+    //where there is only one customer record in database
+    //and the user makes no call
+    public void createAllCustomersBillsOneCusNoCallEach(){
+        final List<Customer> customerList = new LinkedList<Customer>();
+        customerList.add(cus1);
+
+        context.checking(new Expectations() {{
+            allowing(customerDB).getCustomers();will(returnValue(customerList));
+            oneOf(generator).send(
+                    with(equalTo(cus1)),
+                    with(iterableWithSize(0)),
+                    with(anyString()));
+        }});
+
+        bilLingSystemLogical.createCustomerBills();
+    }
+
+    @Test
+    //test of creating bills for all customers
+    //where there are two customer records in database
+    //and only one of them makes one call to the other
+    public void createAllCustomerBillsOneCusOneCallEach(){
+        final List<Customer> customerList = new LinkedList<Customer>();
+        final BigDecimal costForCus1 = new BigDecimal(10);
+        customerList.add(cus1);
+        customerList.add(cus2);
+
+        context.checking(new Expectations() {{
+            allowing(customerDB).getCustomers();
+            will(returnValue(customerList));
+            oneOf(tariffDB).tarriffFor(cus1);
+            will(returnValue(Tariff.Business));
+
+            oneOf(rateEngine).calculateCost(with(anyCall()), with(anyTariff()));
+            will(returnValue(costForCus1));
+
+            oneOf(generator).send(
+                    with(equalTo(cus1)),
+                    with(iterableWithSize(1)),
+                    with(anyString())
+            );
+
+            oneOf(generator).send(
+                    with(equalTo(cus2)),
+                    with(iterableWithSize(0)),
+                    with(anyString())
+            );
+        }});
+        long time=bilLingSystemLogical.getTime();
+        bilLingSystemLogical.callInitiated(cus1.getPhoneNumber(),cus2.getPhoneNumber());
+        bilLingSystemLogical.setTime(time + 10000);     //call lasts 10 sec
+        bilLingSystemLogical.callCompleted(cus1.getPhoneNumber(),cus2.getPhoneNumber());
+        bilLingSystemLogical.createCustomerBills();
     }
 }

@@ -2,9 +2,6 @@ package com.acmetelecom;
 
 import com.acmetelecom.customer.Customer;
 
-import java.io.PrintStream;
-import java.util.List;
-
 /**
  * Created with IntelliJ IDEA.
  * User: pg
@@ -13,5 +10,5 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public interface Generator {
-    void send(Customer customer, List<LineItem> calls, String totalBill);
+    void send(Customer customer, Iterable<LineItem> calls, String totalBill);
 }

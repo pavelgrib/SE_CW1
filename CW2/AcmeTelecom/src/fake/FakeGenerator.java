@@ -3,9 +3,6 @@ package fake;
 import com.acmetelecom.*;
 import com.acmetelecom.customer.Customer;
 
-import java.io.PrintStream;
-import java.util.List;
-
 /**
  * Created with IntelliJ IDEA.
  * User: pg
@@ -22,7 +19,7 @@ public class FakeGenerator implements Generator {
     }
 
     @Override
-    public void send(Customer customer, List<LineItem> calls, String totalBill) {
+    public void send(Customer customer, Iterable<LineItem> calls, String totalBill) {
 //        printer.printHeading(customer.getFullName(), customer.getPhoneNumber(), customer.getPricePlan());
 //        for (LineItem call : calls) {
 //            printer.printItem(call.date(), call.callee(), call.durationMinutes(), MoneyFormatter.penceToPounds(call.cost()));

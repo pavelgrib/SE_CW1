@@ -64,7 +64,7 @@ public class BillingSystemLogical implements Biller{
 
     @Override
     public void createCustomerBills() {
-        List<Customer> customers = CentralCustomerDatabase.getInstance().getCustomers();
+        List<Customer> customers = customerDatabase.getCustomers();
         for (Customer customer : customers) {
             createBillFor(customer);
         }
@@ -97,7 +97,7 @@ public class BillingSystemLogical implements Biller{
 
         for (Call call : calls) {
 
-            Tariff tariff = CentralTariffDatabase.getInstance().tarriffFor(customer);
+            Tariff tariff = tarrifLibrary.tarriffFor(customer);
 
             BigDecimal cost;
             cost = rateEngine.calculateCost(call ,tariff);
@@ -108,7 +108,7 @@ public class BillingSystemLogical implements Biller{
             items.add(new LineItem(call, callCost));
         }
 
-        new BillGenerator().send(customer, items, MoneyFormatter.penceToPounds(totalBill));
+        generator.send(customer, items, MoneyFormatter.penceToPounds(totalBill));
     }
 
 }
