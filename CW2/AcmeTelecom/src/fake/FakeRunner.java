@@ -17,6 +17,8 @@ import java.util.Date;
  * Date: 12-11-26
  * Time: 下午2:29
  */
+
+// A runnable class used to test the functionalities when coding
 public class FakeRunner {
 
     public static void main(String arges[]) throws InterruptedException {

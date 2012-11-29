@@ -21,7 +21,7 @@ public class ProfitableRateEngine implements RateEngine{
             } else {
                 cost = new BigDecimal(call.durationSeconds()).multiply(tariff.peakRate());
             }
-        return cost;  //To change body of implemented methods use File | Settings | File Templates.
+        return cost;
     }
 
 

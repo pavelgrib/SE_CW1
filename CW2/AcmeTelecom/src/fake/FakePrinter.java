@@ -12,14 +12,6 @@ import java.io.PrintStream;
  */
 public class FakePrinter implements Printer {
 
-    private String time;
-    private String callee;
-    private String duration;
-    private String cost;
-    private String total;
-    private String name;
-    private String phoneNumber;
-
     private PrintStream printStream = null;
 
     public FakePrinter(PrintStream printStream){
@@ -28,36 +20,20 @@ public class FakePrinter implements Printer {
 
     @Override
     public void printHeading(String name, String phoneNumber, String pricePlan) {
-        printStream.println(name + "/" + phoneNumber + " - " + "Price Plan: " + pricePlan);
+        // TODO modify to meet the need of html requirements
+        printStream.print(name + "/" + phoneNumber + " - " + "Price Plan: " + pricePlan);
     }
 
     @Override
     public void printItem(String time, String callee, String duration, String cost) {
-        this.time = time;
-        this.callee = callee;
-        this.duration = duration;
-        this.cost = cost;
+        // TODO modify to meet the need of html requirements
+        printStream.print(time+" "+callee+" "+duration+" "+cost+"\n");
     }
 
     @Override
     public void printTotal(String total) {
-        this.total = total;
-        printStream.print("Total:" + total + "\n");
+        // TODO modify to meet the need of html requirements
+        printStream.print("Total: " + total + "\n");
     }
 
-    public String getTime() {
-        return time;
-    }
-
-    public String getCallee() {
-        return callee;
-    }
-
-    public String getDuration() {
-        return duration;
-    }
-
-    public String getCost() {
-        return cost;
-    }
 }
