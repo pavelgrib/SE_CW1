@@ -23,4 +23,6 @@ public class ProfitableRateEngine implements RateEngine{
             }
         return cost;  //To change body of implemented methods use File | Settings | File Templates.
     }
+
+
 }

@@ -71,7 +71,7 @@ public class FakeRunner {
         System.out.println(">>>>>>>>"+sHour+"  "+sMinute+"  "+sSecond);
         System.out.println(">>>>>>>>"+eHour+"  "+eMinute+"  "+eSecond);
         PeakSeperateOffPeakRateEngine engine = new PeakSeperateOffPeakRateEngine();
-        engine.calculateCost(call);
+        //engine.calculateCost(call);
 
 
 //
