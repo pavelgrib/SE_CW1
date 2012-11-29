@@ -1,6 +1,8 @@
 package fake;
 
 import com.acmetelecom.Call;
+import com.acmetelecom.CallEnd;
+import com.acmetelecom.CallStart;
 import com.acmetelecom.customer.Tariff;
 import com.acmetelecom.rate.PeakSeperateOffPeakRateEngine;
 
@@ -23,7 +25,7 @@ public class FakeRunner {
           FakePrinter fakePrinter = new FakePrinter(System.out);
           FakeGenerator fakeGenerator = new FakeGenerator(fakePrinter);
 
-          FakeBillingSystem bs = new FakeBillingSystem(fakeGenerator);
+          //FakeBillingSystem bs = new FakeBillingSystem(fakeGenerator);
 
 //        bs.setTime(System.currentTimeMillis());
 //        bs.callInitiated("447722113434", "447766511332");
@@ -49,8 +51,8 @@ public class FakeRunner {
         long time = 1354086000000l; // 2012-11-28 7:00
 
 
-        FakeCallStart fakeCallStart = new FakeCallStart("1","2",(time-3600000));
-        FakeCallEnd fakeCallEnd = new FakeCallEnd("1","2", (time+3600000+12*3600000));
+        CallStart fakeCallStart = new CallStart("1","2",(time-3600000));
+        CallEnd fakeCallEnd = new CallEnd("1","2", (time+3600000+12*3600000));
         Call call = new Call(fakeCallStart,fakeCallEnd);
         Calendar calendar = Calendar.getInstance();
 

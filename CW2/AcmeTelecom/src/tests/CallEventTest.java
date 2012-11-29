@@ -22,24 +22,24 @@ public class CallEventTest {
     @Test
     public void CallStartTest() {
         long startTime = 1353783300;
-        CallEvent startEvent = new FakeCallStart(caller, callee, startTime);
+        CallEvent startEvent = new CallStart(caller, callee, startTime);
         assertEquals(startEvent.time(), startTime);
     }
 
     @Test
     public void CallEndTest() {
         long endTime = 1353783900;
-        CallEvent endEvent = new FakeCallStart(caller, callee, endTime);
+        CallEvent endEvent = new CallStart(caller, callee, endTime);
         assertEquals(endEvent.time(),  endTime);
     }
 
     @Test
     public void CalleeAndCallerTest() {
-        CallEvent startEvent = new CallStart(caller, callee);
+        CallEvent startEvent = new CallStart(caller, callee,System.currentTimeMillis());
         assertEquals(startEvent.getCallee(), callee);
         assertEquals(startEvent.getCaller(), caller);
 
-        CallEvent endEvent = new CallEnd(caller, callee);
+        CallEvent endEvent = new CallEnd(caller, callee,System.currentTimeMillis());
         assertEquals(endEvent.getCallee(), callee);
         assertEquals(endEvent.getCaller(), caller);
     }

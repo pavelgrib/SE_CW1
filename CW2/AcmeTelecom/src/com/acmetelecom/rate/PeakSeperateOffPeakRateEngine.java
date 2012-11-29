@@ -58,6 +58,7 @@ public class PeakSeperateOffPeakRateEngine /*implements RateEngine*/ {
         // we ignore the situation that a call could last over 24 hours
         // but we have to consider the call last overnight
         if (eHour < sHour) {
+            int eHourOverNight = eHour+24;
 
         } else {
 
@@ -75,7 +76,6 @@ public class PeakSeperateOffPeakRateEngine /*implements RateEngine*/ {
             else {
                 int offPeakTime = 0;
                 int peakTime = 0;
-                System.out.println("enter cross");
                 // cross the start of the peak
                 if (startTimeInSec <= startHourInSec && startHourInSec <= endTimeInSec && endTimeInSec <= endHourInSec){
                     System.out.println("cross first");

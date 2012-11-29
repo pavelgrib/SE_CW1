@@ -11,8 +11,8 @@ import fit.Parse;
  */
 public class GivenTheSystemIsInitialized extends Fixture {
 
-    @Override
-	public void doTable(Parse p) {
-        SystemUnderTest.os.reset();
-	}
+//    @Override
+//	public void doTable(Parse p) {
+//        SystemUnderTest.os.reset();
+//	}
 }
