@@ -3,12 +3,9 @@ package tests;
 import com.acmetelecom.CallEnd;
 import com.acmetelecom.CallEvent;
 import com.acmetelecom.CallStart;
-import fake.FakeCallEnd;
-import fake.FakeCallStart;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created with IntelliJ IDEA.
