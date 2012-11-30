@@ -13,7 +13,7 @@ public class BillingSystem implements Biller {
         billingSystemLogical = new BillingSystemLogical(
                                                         CentralCustomerDatabase.getInstance()
                                                         ,CentralTariffDatabase.getInstance()
-                                                        ,new BillGenerator()
+                                                        ,new BillGenerator(HtmlPrinter.getInstance())
                                                         ,new PeakSeperateOffPeakRateEngine()
         );
 

@@ -12,8 +12,8 @@ public abstract class CallEvent {
     }
 
     public String getCaller() {
-        return caller;
-    }
+    return caller;
+}
 
     public String getCallee() {
         return callee;
