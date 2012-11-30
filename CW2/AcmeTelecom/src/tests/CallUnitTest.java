@@ -37,7 +37,7 @@ public class CallUnitTest {
     @Test
     public void testDate(){
         Date date = new Date(time);
-        assertEquals(SimpleDateFormat.getInstance().format(date), call.date());
+        assertEquals(new SimpleDateFormat("yyyy-MM-dd 'T' HH:mm:ss").format(date), call.date());
     }
 
     @Test

@@ -1,4 +1,5 @@
 import com.acmetelecom.rate.PeakSeperateOffPeakRateEngine;
+import com.acmetelecom.rate.ProfitableRateEngine;
 import fit.ColumnFixture;
 
 /**

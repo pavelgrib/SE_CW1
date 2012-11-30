@@ -20,19 +20,16 @@ public class FakePrinter implements Printer {
 
     @Override
     public void printHeading(String name, String phoneNumber, String pricePlan) {
-        // TODO modify to meet the need of html requirements
-        printStream.print(name + "/" + phoneNumber + " - " + "Price Plan: " + pricePlan);
+        printStream.print(name + " - " + phoneNumber + " - " + pricePlan+"\n");
     }
 
     @Override
     public void printItem(String time, String callee, String duration, String cost) {
-        // TODO modify to meet the need of html requirements
-        printStream.print(time+" "+callee+" "+duration+" "+cost+"\n");
+        printStream.print(time+" - Call:"+callee+" - Duration:"+duration+" - Cost:"+cost+"\n");
     }
 
     @Override
     public void printTotal(String total) {
-        // TODO modify to meet the need of html requirements
         printStream.print("Total: " + total + "\n");
     }
 

@@ -12,6 +12,15 @@ import java.math.BigDecimal;
  * Time: 下午12:16
  */
 public class ProfitableRateEngine implements RateEngine{
+
+    private int start = 7;
+    private int end = 19;
+
+    public ProfitableRateEngine(int start, int end){
+        this.start = start;
+        this.end = end;
+    }
+
     @Override
     public BigDecimal calculateCost(Call call, Tariff tariff) {
             BigDecimal cost = BigDecimal.ZERO;

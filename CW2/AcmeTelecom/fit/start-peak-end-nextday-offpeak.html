@@ -7,48 +7,11 @@
     <title>One call go cross two day from peak to offpeak</title>
 </head>
 
-<body><h1>start at off-peak, end at peak the next day</h1>
+<body><h1>start at off-peak. end at peak the next day</h1>
+
 
 <table border="0"
        cellpadding=""> <tr> <td> Given the system is initialized </td> </tr> </table>
-
-<table border="0"
-       cellpadding="">
-    <tr>
-        <td colspan="3">Given the following tariff plans</td>
-    </tr>
-
-    <tr>
-        <td>Type</td>
-
-        <td>Off-peak Charge per 10 seconds in pence</td>
-
-        <td>On-peak Charge per 10 seconds in pence</td>
-    </tr>
-
-    <tr>
-        <td>Business</td>
-
-        <td>3</td>
-        <td>5</td>
-    </tr>
-
-    <tr>
-        <td>Leisure</td>
-
-        <td>10</td>
-        <td>20</td>
-    </tr>
-
-    <tr>
-        <td>Standard</td>
-
-        <td>7</td>
-        <td>10</td>
-
-    </tr>
-
-</table>
 
 <table border="0">
     <tr>
@@ -77,23 +40,85 @@
 
         <td>Tariff Plan</td>
     </tr>
+    <tr>
+        <td>Fred Bloggs</td>
+
+        <td>447711232343</td>
+
+        <td>Standard</td>
+    </tr>
 
     <tr>
-        <td>Alice</td>
+        <td>John Smith</td>
 
-        <td>447711111111</td>
+        <td>447722113434</td>
+
+        <td>Business</td>
+    </tr>
+
+    <tr>
+        <td>Jane Dixon</td>
+
+        <td>447799555444</td>
 
         <td>Leisure</td>
     </tr>
 
     <tr>
-        <td>Carol</td>
+        <td>Mike Davies</td>
 
-        <td>447733333333</td>
+        <td>447799888888</td>
+
+        <td>Business</td>
+    </tr>
+
+    <tr>
+        <td>Anne Jones</td>
+
+        <td>447777765432</td>
 
         <td>Standard</td>
     </tr>
 
+    <tr>
+        <td>Sarah Thomas</td>
+
+        <td>447721232123</td>
+
+        <td>Standard</td>
+    </tr>
+
+    <tr>
+        <td>Tina Black</td>
+
+        <td>447795195195</td>
+
+        <td>Leisure</td>
+    </tr>
+
+    <tr>
+        <td>John Watkins</td>
+
+        <td>447132435245</td>
+
+        <td>Business</td>
+    </tr>
+
+    <tr>
+        <td>Giorgia Davidson</td>
+
+        <td>447132435245</td>
+
+        <td>Standard</td>
+    </tr>
+
+    <tr>
+        <td>Jonathan Carr</td>
+
+        <td>447223432532</td>
+
+        <td>Standard</td>
+    </tr>
 </table>
 
 
@@ -113,7 +138,7 @@
 
         <td>To</td>
 
-        <td>Duration(s)</td>
+        <td>Duration</td>
     </tr>
 
 
@@ -122,9 +147,9 @@
 
         <td>01:00</td>
 
-        <td>447711111111</td>
+        <td>447711232343</td>
 
-        <td>447733333333</td>
+        <td>447799555444</td>
 
         <td>25200</td>
     </tr>
@@ -145,26 +170,143 @@
     <tr>
         <td>1</td>
         <td>
-            Alice - 447711111111 - Leisure
+            Fred Bloggs - 447711232343 - Standard
         </td>
     </tr>
     <tr>
         <td>2</td>
         <td>
-            From 18:00	To 01:00	Call 447733333333	Total: 288,00
+            18:00:00 - Call:447799555444 - Duration:420:00 - Cost:61.20
+        </td>
+    </tr>
+
+    <tr>
+        <td>3</td>
+        <td>
+            Total: 61.20
+        </td>
+    </tr>
+
+
+    <tr>
+        <td>4</td>
+        <td>
+            John Smith - 447722113434 - Business
+        </td>
+    </tr>
+
+    <tr>
+        <td>5</td>
+        <td>
+            Total: 0.00
+        </td>
+    </tr>
+
+    <tr>
+        <td>6</td>
+        <td>
+            Jane Dixon - 447799555444 - Leisure
         </td>
     </tr>
 
     <tr>
         <td>7</td>
         <td>
-            Carol - 447733333333 - Standard
+            Total: 0.00
         </td>
     </tr>
+
+
     <tr>
         <td>8</td>
         <td>
-            Total: 0,00
+            Mike Davies - 447799888888 - Business
+        </td>
+    </tr>
+    <tr>
+        <td>9</td>
+        <td>
+            Total: 0.00
+        </td>
+    </tr>
+
+
+    <tr>
+        <td>10</td>
+        <td>
+            Anne Jones - 447777765432 - Standard
+        </td>
+    </tr>
+    <tr>
+        <td>11</td>
+        <td>
+            Total: 0.00
+        </td>
+    </tr>
+
+
+    <tr>
+        <td>12</td>
+        <td>
+            Sarah Thomas - 447721232123 - Standard
+        </td>
+    </tr>
+    <tr>
+        <td>13</td>
+        <td>
+            Total: 0.00
+        </td>
+    </tr>
+
+    <tr>
+        <td>14</td>
+        <td>
+            Tina Black - 447795195195 - Leisure
+        </td>
+    </tr>
+    <tr>
+        <td>15</td>
+        <td>
+            Total: 0.00
+        </td>
+    </tr>
+
+    <tr>
+        <td>16</td>
+        <td>
+            John Watkins - 447132435245 - Business
+        </td>
+    </tr>
+    <tr>
+        <td>17</td>
+        <td>
+            Total: 0.00
+        </td>
+    </tr>
+
+    <tr>
+        <td>18</td>
+        <td>
+            Giorgia Davidson - 447132435245 - Standard
+        </td>
+    </tr>
+    <tr>
+        <td>19</td>
+        <td>
+            Total: 0.00
+        </td>
+    </tr>
+
+    <tr>
+        <td>20</td>
+        <td>
+            Jonathan Carr - 447223432532 - Standard
+        </td>
+    </tr>
+    <tr>
+        <td>21</td>
+        <td>
+            Total: 0.00
         </td>
     </tr>
 
