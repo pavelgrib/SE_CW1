@@ -11,7 +11,12 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="fit" level="project" />
     <orderEntry type="library" exported="" name="lib" level="project" />
+<<<<<<< HEAD
     <orderEntry type="library" exported="" name="lib" level="project" />
+=======
+    <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" name="cobertura" level="project" />
+>>>>>>> db895e0e38a93faaf18618c17ffe18b1e46109d8
   </component>
 </module>
 
