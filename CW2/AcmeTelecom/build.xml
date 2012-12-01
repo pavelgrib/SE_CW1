@@ -253,7 +253,7 @@
 
     <target name="Acctest" description="run FolderRunner on tests in html">
         <java classname="fitlibrary.runner.FolderRunner" fork="yes"> <!--failonerror="yes"> -->
-            <jvmarg value="-javaagent:${basedir}/lib/jmock/jdave-unfinalizer-1.1.jar" />
+            <jvmarg value="-javaagent:${basedir}/lib/jdave-unfinalizer-1.1.jar" />
             <arg value="${module.acmetelecom.basedir}/fit"/>
             <arg value="${module.acmetelecom.basedir}/reports"/>
             <!-- Add the instrumented classes to the path, before the normal ones. -->
@@ -268,7 +268,7 @@
     <target name="unittest" description="Execute unit tests">
         <mkdir dir="tmp/rawtestoutput"/>
         <junit fork="true" forkmode="once">
-            <jvmarg value="-javaagent:${basedir}/lib/jmock/jdave-unfinalizer-1.1.jar"/>
+            <jvmarg value="-javaagent:${basedir}/lib/jdave-unfinalizer-1.1.jar"/>
 
             <sysproperty key="net.sourceforge.cobertura.datafile" file="cobertura.ser" />
             <!-- Add the instrumented classes to the path, before the normal ones. -->
