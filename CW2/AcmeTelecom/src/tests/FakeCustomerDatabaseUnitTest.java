@@ -1,5 +1,6 @@
 package tests;
 
+import Builders.CustomerBuilder;
 import com.acmetelecom.customer.Customer;
 import fake.FakeCustomerDatabase;
 import org.junit.Test;
@@ -22,8 +23,18 @@ import static org.junit.Assert.assertNull;
  */
 public class FakeCustomerDatabaseUnitTest {
 
-    Customer cus1 = new Customer("cus1","07771111111","Business");
-    Customer cus2 = new Customer("cus2","07772222222","Business");
+
+    Customer cus1 = CustomerBuilder.aCustomer()
+                    .withFullName("cus1")
+                    .withPhoneNumber("07771111111")
+                    .ofPricePlane("Business")
+                    .build();
+
+    Customer cus2 = CustomerBuilder.aCustomer()
+                    .withFullName("cus2")
+                    .withPhoneNumber("07772222222")
+                    .ofPricePlane("Business")
+                    .build();
 
     @Test
     public void testAddCustomers(){
