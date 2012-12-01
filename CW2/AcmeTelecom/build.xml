@@ -123,6 +123,18 @@
     <pathelement location="${javac2.home}/asm-commons.jar"/>
     <pathelement location="${javac2.home}/jgoodies-forms.jar"/>
   </path>
+
+  <property name="cobertura.dir" value="${basedir}/lib/cobertura" />
+
+  <path id="cobertura.classpath">
+        <fileset dir="${cobertura.dir}">
+            <include name="cobertura.jar" />
+            <include name="*.jar" />
+        </fileset>
+  </path>
+
+  <taskdef classpathref="cobertura.classpath" resource="tasks.properties" />
+
   <target name="register.custom.compilers">
     <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
     <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
@@ -143,7 +155,8 @@
   <property name="compiler.args.acmetelecom" value="${compiler.args}"/>
   
   <property name="acmetelecom.output.dir" value="${module.acmetelecom.basedir}/out/production/AcmeTelecom"/>
-  <property name="acmetelecom.testoutput.dir" value="${module.acmetelecom.basedir}/out/test/AcmeTelecom"/>
+  <property name="acmetelecom.testoutput.dir" value="${module.acmetelecom.basedir}/out/test/AcmeTelecom"/>s
+  <property name="instrumented.dir" value="${module.acmetelecom.basedir}/out/instrumented/AcmeTelecom"/>
   
   <path id="acmetelecom.module.bootclasspath">
     <!-- Paths to be included in compilation bootclasspath -->
@@ -226,7 +239,57 @@
   <target name="init" description="Build initialization">
     <!-- Perform any build initialization in this target -->
   </target>
-  
+
+    <target name="cobertura_instrument" description="Instrument classes">
+        <delete file="cobertura.ser" />
+        <cobertura-instrument todir="${instrumented.dir}">
+            <ignore regex="org.apache.log4j.*" />
+            <fileset dir="${acmetelecom.output.dir}">
+                <include name="**/*.class" />
+                <exclude name="**/*Test.class" />
+            </fileset>
+        </cobertura-instrument>
+    </target>
+
+    <target name="Acctest" description="run FolderRunner on tests in html">
+        <java classname="fitlibrary.runner.FolderRunner" fork="yes"> <!--failonerror="yes"> -->
+            <jvmarg value="-javaagent:${basedir}/lib/jmock/jdave-unfinalizer-1.1.jar" />
+            <arg value="${module.acmetelecom.basedir}/fit"/>
+            <arg value="${module.acmetelecom.basedir}/reports"/>
+            <!-- Add the instrumented classes to the path, before the normal ones. -->
+            <classpath>
+                <pathelement location="${instrumented.dir}"/>
+            </classpath>
+            <classpath refid="acmetelecom.runtime.module.classpath"/>
+            <classpath refid="cobertura.classpath" />
+        </java>
+    </target>
+
+    <target name="unittest" description="Execute unit tests">
+        <mkdir dir="tmp/rawtestoutput"/>
+        <junit fork="true" forkmode="once">
+            <jvmarg value="-javaagent:${basedir}/lib/jmock/jdave-unfinalizer-1.1.jar"/>
+
+            <sysproperty key="net.sourceforge.cobertura.datafile" file="cobertura.ser" />
+            <!-- Add the instrumented classes to the path, before the normal ones. -->
+            <classpath>
+                <pathelement location="${instrumented.dir}"/>
+            </classpath>
+            <classpath refid="acmetelecom.runtime.module.classpath"/>
+            <classpath refid="cobertura.classpath" />
+            <batchtest todir="tmp/rawtestoutput">
+                <fileset dir="${acmetelecom.testoutput.dir}" includes="**/*Test.class" excludes="**/SystemUnderTest.class" />
+                <formatter type="xml"/>
+            </batchtest>
+        </junit>
+        <!--Report already generated while running the tests with the plain production classes-->
+    </target>
+
+
+    <target name="cobertura_report" description="Create reports">
+        <cobertura-report format="xml" destdir="coverage" srcdir="${module.acmetelecom.basedir}/src" />
+    </target>
+
   <target name="clean" depends="clean.module.acmetelecom" description="cleanup all"/>
   
   <target name="build.modules" depends="init, clean, compile.module.acmetelecom" description="build all modules"/>
