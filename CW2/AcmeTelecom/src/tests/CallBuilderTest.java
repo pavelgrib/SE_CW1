@@ -6,6 +6,7 @@ import Builders.CallStartBuilder;
 import com.acmetelecom.Call;
 import com.acmetelecom.CallEnd;
 import com.acmetelecom.CallStart;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.text.SimpleDateFormat;
@@ -39,7 +40,9 @@ public class CallBuilderTest {
 
     @Test
     public void dateTest(){
-        assertEquals(call.date(), SimpleDateFormat.getInstance().format(new Date(start.time())));
+
+        Date date = new Date(new Long(1990*1000));
+        Assert.assertEquals(new SimpleDateFormat("yyyy-MM-dd 'T' HH:mm:ss").format(date), call.date());
     }
 
     @Test
