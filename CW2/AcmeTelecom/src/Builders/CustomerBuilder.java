@@ -1,4 +1,4 @@
-package com.acmetelecom.Builders;
+package Builders;
 
 import com.acmetelecom.customer.Customer;
 import com.sun.istack.internal.Builder;

@@ -1,7 +1,7 @@
 package tests;
 
 import com.acmetelecom.BillingSystemLogical;
-import com.acmetelecom.Builders.CustomerBuilder;
+import Builders.CustomerBuilder;
 import com.acmetelecom.Call;
 import com.acmetelecom.Generator;
 import com.acmetelecom.LineItem;

@@ -1,6 +1,6 @@
 package tests;
 
-import com.acmetelecom.Builders.CallStartBuilder;
+import Builders.CallStartBuilder;
 import com.acmetelecom.CallStart;
 import org.junit.Test;
 

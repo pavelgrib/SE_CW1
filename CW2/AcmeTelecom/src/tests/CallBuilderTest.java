@@ -1,8 +1,8 @@
 package tests;
 
-import com.acmetelecom.Builders.CallBuilder;
-import com.acmetelecom.Builders.CallEndBuilder;
-import com.acmetelecom.Builders.CallStartBuilder;
+import Builders.CallBuilder;
+import Builders.CallEndBuilder;
+import Builders.CallStartBuilder;
 import com.acmetelecom.Call;
 import com.acmetelecom.CallEnd;
 import com.acmetelecom.CallStart;

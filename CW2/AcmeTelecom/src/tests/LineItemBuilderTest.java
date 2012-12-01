@@ -1,6 +1,6 @@
 package tests;
 
-import com.acmetelecom.Builders.*;
+import Builders.*;
 import com.acmetelecom.Call;
 import com.acmetelecom.LineItem;
 import com.acmetelecom.customer.Customer;

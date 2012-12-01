@@ -1,9 +1,9 @@
 package tests;
 
-import com.acmetelecom.Builders.CallBuilder;
-import com.acmetelecom.Builders.CallEndBuilder;
-import com.acmetelecom.Builders.CallStartBuilder;
-import com.acmetelecom.Builders.CustomerBuilder;
+import Builders.CallBuilder;
+import Builders.CallEndBuilder;
+import Builders.CallStartBuilder;
+import Builders.CustomerBuilder;
 import com.acmetelecom.Call;
 import com.acmetelecom.HtmlPrinter;
 import com.acmetelecom.Printer;

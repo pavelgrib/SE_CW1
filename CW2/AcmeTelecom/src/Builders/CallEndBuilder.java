@@ -1,43 +1,43 @@
-package com.acmetelecom.Builders;
+package Builders;
 
-import com.acmetelecom.CallStart;
+import com.acmetelecom.CallEnd;
 import com.sun.istack.internal.Builder;
 
 /**
  * Created with IntelliJ IDEA.
  * User: yufeiwang
  * Date: 30/11/2012
- * Time: 22:15
+ * Time: 22:20
  * To change this template use File | Settings | File Templates.
  */
-public class CallStartBuilder implements Builder {
+public class CallEndBuilder implements Builder {
     private String caller;
     private String callee;
     private long time;
 
-    public static CallStartBuilder aCallStart(){
-        return new CallStartBuilder();
+    public static CallEndBuilder aCallEnd(){
+        return new CallEndBuilder();
     }
-    private CallStartBuilder(){
+    private CallEndBuilder(){
         this.caller = null;
         this.callee = null;
         this.time = 0;
     }
 
-    public CallStartBuilder withCaller(String caller){
+    public CallEndBuilder withCaller(String caller){
         this.caller = caller;
         return this;
     }
-    public CallStartBuilder withCallee(String callee){
+    public CallEndBuilder withCallee(String callee){
         this.callee = callee;
         return this;
     }
-    public CallStartBuilder withStartTime(long time){
+    public CallEndBuilder withEndTime(long time){
         this.time = time;
         return this;
     }
 
-    public CallStart build(){
-        return new CallStart(caller,callee,time);
+    public CallEnd build(){
+        return new CallEnd(caller,callee,time);
     }
 }

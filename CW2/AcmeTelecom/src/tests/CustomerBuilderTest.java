@@ -1,6 +1,6 @@
 package tests;
 
-import com.acmetelecom.Builders.CustomerBuilder;
+import Builders.CustomerBuilder;
 import com.acmetelecom.customer.Customer;
 import org.junit.Test;
 

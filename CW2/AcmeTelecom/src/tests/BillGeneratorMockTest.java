@@ -1,7 +1,7 @@
 package tests;
 
 import com.acmetelecom.*;
-import com.acmetelecom.Builders.*;
+import Builders.*;
 import com.acmetelecom.customer.Customer;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
