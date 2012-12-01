@@ -43,6 +43,6 @@ public class CustomerBuilder implements Builder {
 
     @Override
     public Customer build() {
-        return new Customer(phoneNumber,fullName,pricePlan);
+        return new Customer(fullName,phoneNumber,pricePlan);
     }
 }

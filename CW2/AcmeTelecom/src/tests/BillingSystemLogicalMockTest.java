@@ -1,6 +1,7 @@
 package tests;
 
 import com.acmetelecom.BillingSystemLogical;
+import com.acmetelecom.Builders.CustomerBuilder;
 import com.acmetelecom.Call;
 import com.acmetelecom.Generator;
 import com.acmetelecom.LineItem;
@@ -65,9 +66,12 @@ public class BillingSystemLogicalMockTest {
 
     BillingSystemLogical bilLingSystemLogical = new BillingSystemLogical(customerDB, tariffDB, generator, rateEngine);
 
-    Customer cus1 = new Customer("Alice","123456789","");
-    Customer cus2 = new Customer("Bob","987654321","");
-    Customer cus3 = new Customer("Charley", "111111111", "");
+    Customer cus1 = CustomerBuilder.aCustomer()
+            .withFullName("Alice").withPhoneNumber("123456789").ofPricePlane("asdf")
+            .build();
+    Customer cus2 = CustomerBuilder.aCustomer()
+            .withFullName("Bob").withPhoneNumber("987654321").ofPricePlane("asdf")
+            .build();
 
 
 
