@@ -26,7 +26,7 @@ public class Call {
     }
 
     public String date() {
-        return SimpleDateFormat.getInstance().format(new Date(start.time()));
+        return new SimpleDateFormat("yyyy-MM-dd 'T' HH:mm:ss").format(new Date(start.time()));
     }
 
     public Date startTime() {

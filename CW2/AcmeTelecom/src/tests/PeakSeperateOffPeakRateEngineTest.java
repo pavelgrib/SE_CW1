@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class PeakSeperateOffPeakRateEngineTest {
 
-    public long baseTime = 1354060800000l; // set a base time 2012-11-28 7:00
+    public long baseTime = 1354060800000l; // set a base time 2012-11-28 0:00
     public long oneHour = 3600000l;
     public long oneDay = oneHour * 24;
     PeakSeperateOffPeakRateEngine engine = new PeakSeperateOffPeakRateEngine();

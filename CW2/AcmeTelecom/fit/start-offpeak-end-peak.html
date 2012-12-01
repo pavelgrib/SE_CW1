@@ -10,46 +10,9 @@
 
 <body><h1>start at off-peak and end at peak time </h1>
 
+
 <table border="0"
        cellpadding=""> <tr> <td> Given the system is initialized </td> </tr> </table>
-
-<table border="0"
-       cellpadding="">
-    <tr>
-        <td colspan="3">Given the following tariff plans</td>
-    </tr>
-
-    <tr>
-        <td>Type</td>
-
-        <td>Off-peak Charge per 10 seconds in pence</td>
-
-        <td>On-peak Charge per 10 seconds in pence</td>
-    </tr>
-
-    <tr>
-        <td>Business</td>
-
-        <td>3</td>
-        <td>5</td>
-    </tr>
-
-    <tr>
-        <td>Leisure</td>
-
-        <td>10</td>
-        <td>20</td>
-    </tr>
-
-    <tr>
-        <td>Standard</td>
-
-        <td>7</td>
-        <td>10</td>
-
-    </tr>
-
-</table>
 
 <table border="0">
     <tr>
@@ -78,35 +41,82 @@
 
         <td>Tariff Plan</td>
     </tr>
-
     <tr>
-        <td>Alice</td>
+        <td>Fred Bloggs</td>
 
-        <td>447711111111</td>
-
-        <td>Leisure</td>
-    </tr>
-
-    <tr>
-        <td>Bob</td>
-
-        <td>447722222222</td>
-
-        <td>Business</td>
-    </tr>
-
-    <tr>
-        <td>Carol</td>
-
-        <td>447733333333</td>
+        <td>447711232343</td>
 
         <td>Standard</td>
     </tr>
 
     <tr>
-        <td>Diana</td>
+        <td>John Smith</td>
 
-        <td>447744444444</td>
+        <td>447722113434</td>
+
+        <td>Business</td>
+    </tr>
+
+    <tr>
+        <td>Jane Dixon</td>
+
+        <td>447799555444</td>
+
+        <td>Leisure</td>
+    </tr>
+
+    <tr>
+        <td>Mike Davies</td>
+
+        <td>447799888888</td>
+
+        <td>Business</td>
+    </tr>
+
+    <tr>
+        <td>Anne Jones</td>
+
+        <td>447777765432</td>
+
+        <td>Standard</td>
+    </tr>
+
+    <tr>
+        <td>Sarah Thomas</td>
+
+        <td>447721232123</td>
+
+        <td>Standard</td>
+    </tr>
+
+    <tr>
+        <td>Tina Black</td>
+
+        <td>447795195195</td>
+
+        <td>Leisure</td>
+    </tr>
+
+    <tr>
+        <td>John Watkins</td>
+
+        <td>447132435245</td>
+
+        <td>Business</td>
+    </tr>
+
+    <tr>
+        <td>Giorgia Davidson</td>
+
+        <td>447132435245</td>
+
+        <td>Standard</td>
+    </tr>
+
+    <tr>
+        <td>Jonathan Carr</td>
+
+        <td>447223432532</td>
 
         <td>Standard</td>
     </tr>
@@ -130,7 +140,7 @@
 
         <td>To</td>
 
-        <td>Duration(s)</td>
+        <td>Duration</td>
     </tr>
 
 
@@ -139,9 +149,9 @@
 
         <td>08:00</td>
 
-        <td>447711111111</td>
+        <td>447711232343</td>
 
-        <td>447744444444</td>
+        <td>447799888888</td>
 
         <td>18000</td>
     </tr>
@@ -151,9 +161,9 @@
 
         <td>08:00</td>
 
-        <td>447722222222</td>
+        <td>447722113434</td>
 
-        <td>447744444444</td>
+        <td>447777765432</td>
 
         <td>18000</td>
     </tr>
@@ -163,9 +173,9 @@
 
         <td>08:00</td>
 
-        <td>447733333333</td>
+        <td>447799555444</td>
 
-        <td>447744444444</td>
+        <td>447721232123</td>
 
         <td>7200</td>
     </tr>
@@ -187,52 +197,153 @@
     <tr>
         <td>1</td>
         <td>
-            Alice - 447711111111 - Leisure
+            Fred Bloggs - 447711232343 - Standard
         </td>
     </tr>
     <tr>
         <td>2</td>
         <td>
-            From 03:00	To 08:00	Call 447744444444	Total: 216,00
+            03:00:00 - Call:447799888888 - Duration:300:00 - Cost:46.80
         </td>
     </tr>
 
     <tr>
         <td>3</td>
         <td>
-            Bob - 447722222222 - Business
-        </td>
-    </tr>
-    <tr>
-        <td>4</td>
-        <td>
-            From 03:00	To 08:00	Call 447744444444	Total: 61,20
+            Total: 46.80
         </td>
     </tr>
 
     <tr>
-        <td>5</td>
+        <td>4</td>
         <td>
-            Carol - 447733333333 - Standard
+            John Smith - 447722113434 - Business
         </td>
     </tr>
     <tr>
+        <td>5</td>
+        <td>
+            03:00:00 - Call:447777765432 - Duration:300:00 - Cost:54.00
+        </td>
+    </tr>
+
+    <tr>
         <td>6</td>
         <td>
-            From 06:00	To 08:00 Call 447744444444	Total: 61,20
+            Total: 54.00
         </td>
     </tr>
 
     <tr>
         <td>7</td>
         <td>
-            Diana - 447744444444 - Standard
+            Jane Dixon - 447799555444 - Leisure
         </td>
     </tr>
     <tr>
         <td>8</td>
         <td>
-            Total: 0,00
+            06:00:00 - Call:447721232123 - Duration:120:00 - Cost:32.40
+        </td>
+    </tr>
+
+    <tr>
+        <td>9</td>
+        <td>
+            Total: 32.40
+        </td>
+    </tr>
+
+    <tr>
+        <td>10</td>
+        <td>
+            Mike Davies - 447799888888 - Business
+        </td>
+    </tr>
+    <tr>
+        <td>11</td>
+        <td>
+            Total: 0.00
+        </td>
+    </tr>
+
+
+    <tr>
+        <td>12</td>
+        <td>
+            Anne Jones - 447777765432 - Standard
+        </td>
+    </tr>
+    <tr>
+        <td>13</td>
+        <td>
+            Total: 0.00
+        </td>
+    </tr>
+
+
+    <tr>
+        <td>14</td>
+        <td>
+            Sarah Thomas - 447721232123 - Standard
+        </td>
+    </tr>
+    <tr>
+        <td>15</td>
+        <td>
+            Total: 0.00
+        </td>
+    </tr>
+
+    <tr>
+        <td>16</td>
+        <td>
+            Tina Black - 447795195195 - Leisure
+        </td>
+    </tr>
+    <tr>
+        <td>17</td>
+        <td>
+            Total: 0.00
+        </td>
+    </tr>
+
+    <tr>
+        <td>18</td>
+        <td>
+            John Watkins - 447132435245 - Business
+        </td>
+    </tr>
+    <tr>
+        <td>19</td>
+        <td>
+            Total: 0.00
+        </td>
+    </tr>
+
+    <tr>
+        <td>20</td>
+        <td>
+            Giorgia Davidson - 447132435245 - Standard
+        </td>
+    </tr>
+    <tr>
+        <td>21</td>
+        <td>
+            Total: 0.00
+        </td>
+    </tr>
+
+    <tr>
+        <td>22</td>
+        <td>
+            Jonathan Carr - 447223432532 - Standard
+        </td>
+    </tr>
+    <tr>
+        <td>23</td>
+        <td>
+            Total: 0.00
         </td>
     </tr>
 

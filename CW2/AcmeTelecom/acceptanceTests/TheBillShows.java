@@ -10,34 +10,36 @@ import java.util.List;
  * Time: 上午11:40
  * To change this template use File | Settings | File Templates.
  */
-public class TheBillShows {//extends RowFixture{
+public class TheBillShows extends RowFixture{
 
-//    public static class Row {
-//        public int Line;
-//        public String Text;
-//
-//        public Row(int line, String text) {
-//            Line = line;
-//            Text = text;
-//        }
-//    }
-//
-//    @Override
-//    public Class<?> getTargetClass() {
-//        return Row.class;
-//    }
-//
-//    @Override
-//    public Object[] query() throws Exception {
-//        SystemUnderTest.bs.createCustomerBills();
-//
-//        List<Row> rows = new ArrayList<Row>();
-//        String[] out = SystemUnderTest.os.toString().trim().split("\n");
-//        for (int i=0; i<out.length;i++){
-//            rows.add(new Row(i+1,out[i]));
-//        }
-//        //rows.add(new Row(rows.size() + 1, SystemUnderTest.os.toString()));
-//        //TODO get contents from Printer and add to rows
-//        return rows.toArray();
-//    }
+
+    public static class Record {
+        public int LineNum;
+        public String Text;
+
+        public Record( String text,int num) {
+            this.LineNum = num;
+            Text = text;
+        }
+    }
+
+    @Override
+    public Class<?> getTargetClass() {
+        return Record.class;
+    }
+
+    @Override
+    public Object[] query() throws Exception {
+        SystemUnderTest.bs.createCustomerBills();
+
+        int i = 0;
+        String[] out = SystemUnderTest.os.toString().split("\n");
+        Record[] records = new Record[out.length];
+        for( String line : out)
+        {
+            records[i] =new Record(line,i+1);
+            i++;
+        }
+        return records;
+    }
 }
