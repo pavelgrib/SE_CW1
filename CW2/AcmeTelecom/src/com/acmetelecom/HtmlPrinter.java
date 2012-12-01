@@ -2,7 +2,7 @@ package com.acmetelecom;
 
 import java.io.PrintStream;
 
-class HtmlPrinter implements Printer {
+public class HtmlPrinter implements Printer {
 
     private static Printer instance = new HtmlPrinter(System.out);
 
