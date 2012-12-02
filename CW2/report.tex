@@ -1,4 +1,4 @@
-\documentclass{report}
+\documentclass{article}
 \usepackage[T1]{fontenc}
 \usepackage{titlesec, color}
 \definecolor{gray75}{gray}{0.75}
@@ -12,15 +12,53 @@
 }
 \makeatother
 
-\title{\Huge Software Engineering for Industry \\ Coursework 2: AcmeTelecom Project}
+\title{\Huge Software Engineering for Industry \\ Coursework 2: AcmeTelecom Billing System}
 
 \begin{document}
 \maketitle
-\chapter{Introduction}
-In this 
-\chapter{Testing Existing Code}
-\chapter{Implementing the New Billing System}
-\chapter{Acceptance Tests}
-\chapter{Lessons Learned}
+
+\section{Introduction} % paul
+In this report we relied heavily on Test Driven Development (TDD) to analyze the initial codebase and then build on it to add a business-critical feature in a consistent way.  We added Framework for Integrated Testing (FIT) to understand the results produced by the billing system as well as how to proceed in developing software which would pass these tests.
+
+\section{Analysis of Original Code} % paul
+Initial dependency graph showed that the code was coherent and decoupled, although it lacked interfaces to a lot of classes for easy testing and feature-building.  \verb+BillingGenerator+ acts as an intermediary between \verb+BillingSystem+ and \verb+Printer+.
+
+\section{Refactoring and Testing} % fred (maybe and paul)
+Creating interfaces for testing purposes
+Creating Mock tests
+Creating Unit tests for container classes
+Breaking \verb+HtmlPrinter+ singleton interface and changing constructor to take a different \verb+PrintStream+ other than \verb+System.out+.
+
+Extracted calculation part of original \verb+BillingSystem+ into a new class to allow flexibility in future design.
+
+\section{Creating a DSL} % fred
+
+\section{Implementing the New Billing System}  % juno
+% here we talk about the way to design new system and how the calculations happen
+% include some important lines of code as examples
+
+
+
+% \emph{emphasize} \textbf{boldface}
+
+\section{Acceptance Tests} % cici and juno
+\begin{itemize}
+\item GivenPeakPeriod: 
+\item GivenTheFollowingCustomers: 
+\item GivenTheseCallsAreMade:
+\item GivenTheSystemIsInitialized:
+\item TheBillShows:
+\end{itemize}
+
+% \begin{figure}[!h]
+% \begin{changemargin}{-20mm}{-20mm}
+% \center
+% \includegraphics[scale=1]{file_name.jpg}
+% \caption{Caption string}
+% \end{changemargin}
+% \end{figure}i
+
+\section{Conclusions and Recommendations} % leah
+Tools used (Git, Jenkins, IntelliJ Coverage Report, IntelliJ Dependency Matrix).  Problems enountered like refactoring for Tiny Types, Mocking with concreted classes rather than interfaces.
 % \blindtext
 \end{document}
