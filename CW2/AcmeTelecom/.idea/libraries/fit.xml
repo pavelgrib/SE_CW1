@@ -1,15 +1,11 @@
 <component name="libraryTable">
   <library name="fit">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/lib/fit" />
-      <root url="file://$PROJECT_DIR$/lib/fit" />
+      <root url="jar://$PROJECT_DIR$/lib/fit/jmock-junit4-2.6.0-RC2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/fit/fitLibraryRunner-20070110-src.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/fit/fitlibraryRunner-20070110.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES>
-      <root url="file://$PROJECT_DIR$/lib/fit" />
-      <root url="file://$PROJECT_DIR$/lib/fit" />
-    </SOURCES>
-    <jarDirectory url="file://$PROJECT_DIR$/lib/fit" recursive="false" />
-    <jarDirectory url="file://$PROJECT_DIR$/lib/fit" recursive="false" type="SOURCES" />
+    <SOURCES />
   </library>
 </component>
