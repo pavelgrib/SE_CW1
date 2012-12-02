@@ -1,8 +1,8 @@
 package com.acmetelecom.rate;
-import com.acmetelecom.Call;
-import com.acmetelecom.customer.Tariff;
 
-import java.math.BigDecimal;
+import com.acmetelecom.Call;
+import com.acmetelecom.Cost;
+import com.acmetelecom.customer.Tariff;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,6 +12,6 @@ import java.math.BigDecimal;
  */
 public interface RateEngine {
 
-    public BigDecimal calculateCost(Call call, Tariff tariff);
+    public Cost calculateCost(Call call, Tariff tariff);
 
 }

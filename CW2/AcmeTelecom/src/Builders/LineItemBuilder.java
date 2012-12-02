@@ -1,6 +1,7 @@
 package Builders;
 
 import com.acmetelecom.Call;
+import com.acmetelecom.Cost;
 import com.acmetelecom.LineItem;
 import com.sun.istack.internal.Builder;
 
@@ -39,6 +40,6 @@ public class LineItemBuilder implements Builder {
     @Override
     public LineItem build() {
         // TODO Auto-generated method stub
-        return new LineItem(this.call, this.callCost);
+        return new LineItem(new Cost(this.callCost), this.call);
     }
 }

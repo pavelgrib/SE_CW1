@@ -1,8 +1,10 @@
 package com.acmetelecom.rate;
 
 import com.acmetelecom.Call;
+import com.acmetelecom.Cost;
 import com.acmetelecom.customer.Tariff;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Calendar;
 
 
@@ -28,14 +30,15 @@ public class PeakSeperateOffPeakRateEngine implements RateEngine {
     }
 
     @Override
-    public BigDecimal calculateCost(Call call, Tariff tariff){
+    public Cost calculateCost(Call call, Tariff tariff){
         BigDecimal cost = BigDecimal.ZERO;
         int[] duration = calculateDuration(call);
 
         cost = cost.add(new BigDecimal(duration[0]).multiply(tariff.offPeakRate()));
         cost = cost.add(new BigDecimal(duration[1]).multiply(tariff.peakRate()));
 
-        return cost;
+        cost = cost.setScale(0, RoundingMode.HALF_UP);
+        return new Cost(cost);
     }
 
     public int[] calculateDuration(Call call) {

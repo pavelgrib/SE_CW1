@@ -1,10 +1,12 @@
 package com.acmetelecom;
 
-import com.acmetelecom.customer.*;
+import com.acmetelecom.customer.Customer;
+import com.acmetelecom.customer.CustomerDatabase;
+import com.acmetelecom.customer.Tariff;
+import com.acmetelecom.customer.TariffLibrary;
 import com.acmetelecom.rate.RateEngine;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -92,20 +94,20 @@ public class BillingSystemLogical implements Biller{
             }
         }
 
-        BigDecimal totalBill = new BigDecimal(0);
+        Cost totalBill = new Cost(BigDecimal.ZERO);
         List<LineItem> items = new ArrayList<LineItem>();
 
         for (Call call : calls) {
 
             Tariff tariff = tarrifLibrary.tarriffFor(customer);
 
-            BigDecimal cost;
+            Cost cost;
             cost = rateEngine.calculateCost(call ,tariff);
 
-            cost = cost.setScale(0, RoundingMode.HALF_UP);
-            BigDecimal callCost = cost;
+
+            Cost callCost = cost;
             totalBill = totalBill.add(callCost);
-            items.add(new LineItem(call, callCost));
+            items.add(new LineItem(callCost, call));
         }
 
         generator.send(customer, items, MoneyFormatter.penceToPounds(totalBill));

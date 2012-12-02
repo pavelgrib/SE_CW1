@@ -1,5 +1,6 @@
 package tests;
 
+import com.acmetelecom.Cost;
 import com.acmetelecom.MoneyFormatter;
 import org.junit.Test;
 
@@ -19,7 +20,7 @@ public class MoneyFormatterTest {
 
     @Test
     public void testPenceToPounds(){
-        BigDecimal moneyInPence = new BigDecimal(100000);
+        Cost moneyInPence = new Cost(new BigDecimal(100000));
         assertTrue(moneyFormatter.penceToPounds(moneyInPence).equals("1000.00"));
     }
 }

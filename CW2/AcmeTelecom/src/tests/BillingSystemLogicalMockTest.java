@@ -98,7 +98,7 @@ public class BillingSystemLogicalMockTest {
     //and only one of them makes one call to the other
     public void createAllCustomerBillsTwoCusOneCallOnly(){
         final List<Customer> customerList = new LinkedList<Customer>();
-        final BigDecimal costForCus1 = new BigDecimal(10);
+        final Cost costForCus1 = new Cost(new BigDecimal(10));
         customerList.add(cus1);
         customerList.add(cus2);
 
@@ -131,8 +131,8 @@ public class BillingSystemLogicalMockTest {
 
     public void createAllCustomerBillsWithTwoCusOneCallEach(){
         final List<Customer> customerList = new LinkedList<Customer>();
-        final BigDecimal costForCus1 = new BigDecimal(10);
-        final BigDecimal costForCus2 = new BigDecimal(10);
+        final Cost costForCus1 = new Cost(new BigDecimal(10));
+        final Cost costForCus2 = new Cost(new BigDecimal(10));
 
         customerList.add(cus1);
         customerList.add(cus2);
@@ -172,8 +172,8 @@ public class BillingSystemLogicalMockTest {
 
     public void createAllCustomerBillsWithTwoCusAndOnlyTwoCallsFromOneOfThem(){
         final List<Customer> customerList = new LinkedList<Customer>();
-        final BigDecimal costForCus1Call1 = new BigDecimal(10);
-        final BigDecimal costForCus1Call2 = new BigDecimal(10);
+        final Cost costForCus1Call1 = new Cost(new BigDecimal(10));
+        final Cost costForCus1Call2 = new Cost(new BigDecimal(10));
 
         customerList.add(cus1);
         customerList.add(cus2);

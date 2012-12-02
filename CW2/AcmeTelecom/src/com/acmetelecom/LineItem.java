@@ -1,7 +1,5 @@
 package com.acmetelecom;
 
-import java.math.BigDecimal;
-
 /**
  * Created with IntelliJ IDEA.
  * User: pg
@@ -11,11 +9,11 @@ import java.math.BigDecimal;
  */
 public class LineItem {
     private Call call;
-    private BigDecimal callCost;
+    private Cost callCost;
 
-    public LineItem(Call call, BigDecimal callCost) {
+    public LineItem(Cost cost, Call call) {
         this.call = call;
-        this.callCost = callCost;
+        this.callCost = cost;
     }
 
     public String date() {
@@ -30,7 +28,7 @@ public class LineItem {
         return "" + call.durationSeconds() / 60 + ":" + String.format("%02d", call.durationSeconds() % 60);
     }
 
-    public BigDecimal cost() {
+    public Cost cost() {
         return callCost;
     }
 }

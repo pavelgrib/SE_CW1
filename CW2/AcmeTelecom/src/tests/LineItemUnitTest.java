@@ -2,6 +2,7 @@ package tests;
 
 import Builders.*;
 import com.acmetelecom.Call;
+import com.acmetelecom.Cost;
 import com.acmetelecom.LineItem;
 import com.acmetelecom.customer.Customer;
 import org.junit.Test;
@@ -36,8 +37,8 @@ public class LineItemUnitTest {
                     .build()
     ).build();
 
-    BigDecimal cost = new BigDecimal(1111);
-    LineItem lineItem = LineItemBuilder.aLineItem().withCall(call).withACostOf(cost).build();
+    Cost cost = new Cost(new BigDecimal(1111));
+    LineItem lineItem = LineItemBuilder.aLineItem().withCall(call).withACostOf(cost.getCallCost()).build();
 
     @Test
     public void dateTest(){
@@ -56,7 +57,7 @@ public class LineItemUnitTest {
 
     @Test
     public void costTest(){
-        assertEquals(lineItem.cost(),cost);
+        assertEquals(lineItem.cost().getCallCost(),cost.getCallCost());
     }
 
 }
