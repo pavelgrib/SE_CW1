@@ -11,12 +11,12 @@ public abstract class CallEvent {
         this.time = timeStamp;
     }
 
-    public Caller getCaller() {
-    return caller;
+    public String getCaller() {
+    return caller.toString();
 }
 
-    public Callee getCallee() {
-        return callee;
+    public String getCallee() {
+        return callee.toString();
     }
 
     public long time() {

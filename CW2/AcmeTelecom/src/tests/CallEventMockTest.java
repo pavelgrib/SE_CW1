@@ -4,7 +4,10 @@ import com.acmetelecom.Biller;
 import com.acmetelecom.Callee;
 import com.acmetelecom.Caller;
 import junit.framework.TestCase;
-import org.jmock.Expectations;
+import com.acmetelecom.Callee;
+import com.acmetelecom.Caller;
+
+import junit.framework.TestCase;
 import org.jmock.Mockery;
 import org.jmock.States;
 import org.jmock.integration.junit4.JMock;
