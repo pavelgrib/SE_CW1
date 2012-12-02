@@ -17,7 +17,7 @@ public class Call {
         this.end = end;
     }
 
-    public Callee callee() {
+    public String callee() {
         return start.getCallee();
     }
 

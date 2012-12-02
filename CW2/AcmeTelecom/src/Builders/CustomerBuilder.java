@@ -11,9 +11,9 @@ import com.sun.istack.internal.Builder;
  * To change this template use File | Settings | File Templates.
  */
 public class CustomerBuilder implements Builder {
-    private java.lang.String phoneNumber;
-    private java.lang.String fullName;
-    private java.lang.String pricePlan;
+    private String phoneNumber;
+    private String fullName;
+    private String pricePlan;
 
     public static CustomerBuilder aCustomer(){
         return new CustomerBuilder();

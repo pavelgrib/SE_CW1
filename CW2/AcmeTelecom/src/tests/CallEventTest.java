@@ -34,11 +34,11 @@ public class CallEventTest {
     @Test
     public void CalleeAndCallerTest() {
         CallEvent startEvent = new CallStart(caller, callee,System.currentTimeMillis());
-        assertEquals(startEvent.getCallee(), callee);
-        assertEquals(startEvent.getCaller(), caller);
+        assertEquals(startEvent.getCallee(), callee.toString());
+        assertEquals(startEvent.getCaller(), caller.toString());
 
         CallEvent endEvent = new CallEnd(caller, callee,System.currentTimeMillis());
-        assertEquals(endEvent.getCallee(), callee);
-        assertEquals(endEvent.getCaller(), caller);
+        assertEquals(endEvent.getCallee(), callee.toString());
+        assertEquals(endEvent.getCaller(), caller.toString());
     }
 }

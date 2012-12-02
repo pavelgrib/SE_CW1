@@ -22,7 +22,7 @@ public class LineItem {
         return call.date();
     }
 
-    public Callee callee() {
+    public String callee() {
         return call.callee();
     }
 
