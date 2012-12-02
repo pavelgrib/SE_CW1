@@ -1,8 +1,6 @@
 package tests;
 
-import com.acmetelecom.CallEnd;
-import com.acmetelecom.CallEvent;
-import com.acmetelecom.CallStart;
+import com.acmetelecom.*;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -16,8 +14,8 @@ import static org.junit.Assert.assertEquals;
  */
 public class CallEventTest {
 
-    private String caller = "1";
-    private String callee = "2";
+    private Caller caller = new Caller("1");
+    private Callee callee = new Callee("2");
 
     @Test
     public void CallStartTest() {

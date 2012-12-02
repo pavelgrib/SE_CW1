@@ -1,6 +1,8 @@
 package tests;
 
 import com.acmetelecom.BillingSystemLogical;
+import com.acmetelecom.Callee;
+import com.acmetelecom.Caller;
 import com.acmetelecom.Generator;
 import com.acmetelecom.customer.CustomerDatabase;
 import com.acmetelecom.customer.TariffLibrary;
@@ -40,10 +42,12 @@ public class BillingSystemLogicalTest {
 
     @Test
     public void testCallingProgress(){
-        billingSystemLogical.callInitiated("123123123123", "321321321321");
-        assertEquals(billingSystemLogical.callInProgress("123123123123"), true);
-        billingSystemLogical.callCompleted("123123123123", "321321321321");
-        assertEquals(billingSystemLogical.callInProgress("123123123123"), false);
+        Caller caller = new Caller("123123123123");
+        Callee callee = new Callee("321321321321");
+        billingSystemLogical.callInitiated(caller, callee);
+        assertEquals(billingSystemLogical.callInProgress(caller), true);
+        billingSystemLogical.callCompleted(caller, callee);
+        assertEquals(billingSystemLogical.callInProgress(caller), false);
     }
 
 

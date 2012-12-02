@@ -8,11 +8,11 @@ package com.acmetelecom;
  * To change this template use File | Settings | File Templates.
  */
 public interface Biller {
-    void callInitiated(String caller, String callee);
+    void callInitiated(Caller caller, Callee callee);
 
-    void callCompleted(String caller, String callee);
+    void callCompleted(Caller caller, Callee callee);
 
-    boolean callInProgress(String caller);
+    boolean callInProgress(Caller caller);
 
     void createCustomerBills();
 }

@@ -1,10 +1,7 @@
 package tests;
 
-import com.acmetelecom.BillingSystemLogical;
+import com.acmetelecom.*;
 import Builders.CustomerBuilder;
-import com.acmetelecom.Call;
-import com.acmetelecom.Generator;
-import com.acmetelecom.LineItem;
 import com.acmetelecom.customer.Customer;
 import com.acmetelecom.customer.CustomerDatabase;
 import com.acmetelecom.customer.Tariff;
@@ -124,9 +121,11 @@ public class BillingSystemLogicalMockTest {
             );
         }});
         long time=bilLingSystemLogical.getTime();
-        bilLingSystemLogical.callInitiated(cus1.getPhoneNumber(),cus2.getPhoneNumber());
+        Caller caller = new Caller(cus1.getPhoneNumber());
+        Callee callee = new Callee(cus2.getPhoneNumber());
+        bilLingSystemLogical.callInitiated(caller, callee);
         bilLingSystemLogical.setTime(time + 10000);     //call lasts 10 sec
-        bilLingSystemLogical.callCompleted(cus1.getPhoneNumber(),cus2.getPhoneNumber());
+        bilLingSystemLogical.callCompleted(caller, callee);
         bilLingSystemLogical.createCustomerBills();
     }
 
@@ -160,12 +159,14 @@ public class BillingSystemLogicalMockTest {
         }});
 
         long time=bilLingSystemLogical.getTime();
-        bilLingSystemLogical.callInitiated(cus1.getPhoneNumber(), cus2.getPhoneNumber());
+        Caller caller = new Caller(cus1.getPhoneNumber());
+        Callee callee = new Callee(cus2.getPhoneNumber());
+        bilLingSystemLogical.callInitiated(caller, callee);
         bilLingSystemLogical.setTime(time+1000); // customer 1 called 10 sec
-        bilLingSystemLogical.callCompleted(cus1.getPhoneNumber(),cus2.getPhoneNumber());
-        bilLingSystemLogical.callInitiated(cus2.getPhoneNumber(), cus1.getPhoneNumber());
+        bilLingSystemLogical.callCompleted(caller, callee);
+        bilLingSystemLogical.callInitiated(caller, callee);
         bilLingSystemLogical.setTime(time+2000);// customer 2 called 10 sec
-        bilLingSystemLogical.callCompleted(cus2.getPhoneNumber(), cus1.getPhoneNumber());
+        bilLingSystemLogical.callCompleted(caller, callee);
         bilLingSystemLogical.createCustomerBills();
     }
 
@@ -199,12 +200,14 @@ public class BillingSystemLogicalMockTest {
         }});
 
         long time=bilLingSystemLogical.getTime();
-        bilLingSystemLogical.callInitiated(cus1.getPhoneNumber(), cus2.getPhoneNumber());
+        Caller caller = new Caller(cus1.getPhoneNumber());
+        Callee callee = new Callee(cus2.getPhoneNumber());
+        bilLingSystemLogical.callInitiated(caller, callee);
         bilLingSystemLogical.setTime(time+1000); // customer 1 called 10 sec
-        bilLingSystemLogical.callCompleted(cus1.getPhoneNumber(),cus2.getPhoneNumber());
-        bilLingSystemLogical.callInitiated(cus1.getPhoneNumber(), cus2.getPhoneNumber());
+        bilLingSystemLogical.callCompleted(caller,callee);
+        bilLingSystemLogical.callInitiated(caller, callee);
         bilLingSystemLogical.setTime(time+2000);// customer 1 called 10 sec again
-        bilLingSystemLogical.callCompleted(cus1.getPhoneNumber(), cus2.getPhoneNumber());
+        bilLingSystemLogical.callCompleted(caller, callee);
         bilLingSystemLogical.createCustomerBills();
     }
 
@@ -217,9 +220,9 @@ public class BillingSystemLogicalMockTest {
 
     @Test
     public void testCallingProgress(){
-        bilLingSystemLogical.callInitiated("123123123123", "321321321321");
-        assertEquals(bilLingSystemLogical.callInProgress("123123123123"), true);
-        bilLingSystemLogical.callCompleted("123123123123", "321321321321");
-        assertEquals(bilLingSystemLogical.callInProgress("123123123123"), false);
+        bilLingSystemLogical.callInitiated(new Caller("123123123123"), new Callee("321321321321"));
+        assertEquals(bilLingSystemLogical.callInProgress(new Caller("123123123123")), true);
+        bilLingSystemLogical.callCompleted(new Caller("123123123123"), new Callee("321321321321"));
+        assertEquals(bilLingSystemLogical.callInProgress(new Caller("123123123123")), false);
     }
 }

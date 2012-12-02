@@ -20,19 +20,19 @@ public class BillingSystem implements Biller {
     }
 
     @Override
-    public void callInitiated(String caller, String callee){
+    public void callInitiated(Caller caller, Callee callee){
         billingSystemLogical.setTime((System.currentTimeMillis()));
         billingSystemLogical.callInitiated(caller, callee);
     }
 
     @Override
-    public void callCompleted(String caller, String callee){
+    public void callCompleted(Caller caller, Callee callee){
         billingSystemLogical.setTime(System.currentTimeMillis());
         billingSystemLogical.callCompleted(caller, callee);
     }
 
     @Override
-    public boolean callInProgress(String caller){
+    public boolean callInProgress(Caller caller){
         return billingSystemLogical.callInProgress(caller);
     }
 

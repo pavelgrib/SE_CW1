@@ -1,6 +1,8 @@
 package Builders;
 
 import com.acmetelecom.CallEnd;
+import com.acmetelecom.Callee;
+import com.acmetelecom.Caller;
 import com.sun.istack.internal.Builder;
 
 /**
@@ -38,6 +40,6 @@ public class CallEndBuilder implements Builder {
     }
 
     public CallEnd build(){
-        return new CallEnd(caller,callee,time);
+        return new CallEnd(new Caller(caller), new Callee(callee), time);
     }
 }

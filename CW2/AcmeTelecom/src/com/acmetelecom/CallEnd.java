@@ -1,7 +1,7 @@
 package com.acmetelecom;
 
 public class CallEnd extends CallEvent {
-    public CallEnd(String caller, String callee, long time) {
+    public CallEnd(Caller caller, Callee callee, long time) {
         super(caller, callee, time);
     }
 }

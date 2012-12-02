@@ -14,7 +14,7 @@ public class BillGenerator implements Generator {
 
         printer.printHeading(customer.getFullName(), customer.getPhoneNumber(), customer.getPricePlan());
         for (LineItem call : calls) {
-            printer.printItem(call.date(), call.callee(), call.durationMinutes(), MoneyFormatter.penceToPounds(call.cost()));
+            printer.printItem(call.date(), call.callee().toString(), call.durationMinutes(), MoneyFormatter.penceToPounds(call.cost()));
         }
         printer.printTotal(totalBill);
     }

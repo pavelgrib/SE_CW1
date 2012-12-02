@@ -46,20 +46,20 @@ public class BillingSystemLogical implements Biller{
     }
 
     @Override
-    public void callInitiated(String caller, String callee) {
+    public void callInitiated(Caller caller, Callee callee) {
         callLog.add(new CallStart(caller, callee,time));
-        callInProgress.put(caller, Boolean.TRUE);
+        callInProgress.put(caller.toString(), Boolean.TRUE);
     }
 
     @Override
-    public void callCompleted(String caller, String callee) {
+    public void callCompleted(Caller caller, Callee callee) {
         callLog.add(new CallEnd(caller, callee,time));
-        callInProgress.put(caller, Boolean.FALSE);
+        callInProgress.put(caller.toString(), Boolean.FALSE);
     }
 
     @Override
-    public boolean callInProgress(String caller) {
-        return callInProgress.get(caller);
+    public boolean callInProgress(Caller caller) {
+        return callInProgress.get(caller.toString());
     }
 
     @Override

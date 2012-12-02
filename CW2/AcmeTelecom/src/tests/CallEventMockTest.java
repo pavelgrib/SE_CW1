@@ -1,6 +1,8 @@
 package tests;
 
 import com.acmetelecom.Biller;
+import com.acmetelecom.Callee;
+import com.acmetelecom.Caller;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
@@ -17,8 +19,8 @@ import org.junit.runner.RunWith;
 @RunWith(JMock.class)
 public class CallEventMockTest {
 
-    String caller = "1";
-    String callee = "2";
+    Caller caller = new Caller("1");
+    Callee callee = new Callee("2");
     Mockery context = new Mockery();
     Biller bs = context.mock(Biller.class);
     @Test

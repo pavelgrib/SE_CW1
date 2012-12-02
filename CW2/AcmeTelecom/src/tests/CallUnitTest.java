@@ -1,8 +1,6 @@
 package tests;
 
-import com.acmetelecom.Call;
-import com.acmetelecom.CallEnd;
-import com.acmetelecom.CallStart;
+import com.acmetelecom.*;
 import com.acmetelecom.rate.DaytimePeakPeriod;
 import org.junit.Test;
 
@@ -20,8 +18,10 @@ import static org.junit.Assert.assertEquals;
 public class CallUnitTest {
 
     public long time = 1354060800000l;  // set test time to 2012-11-28 0:00
-    public CallStart callStart = new CallStart("Caller","Callee",time);
-    public CallEnd callEnd = new CallEnd("Caller","Callee",(time+10*1000));
+    Caller caller = new Caller("Caller");
+    Callee callee = new Callee("Callee");
+    public CallStart callStart = new CallStart(caller, callee,time);
+    public CallEnd callEnd = new CallEnd(caller, callee,(time+10*1000));
     public Call call = new Call(callStart,callEnd);
 
     @Test

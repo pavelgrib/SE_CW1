@@ -1,3 +1,5 @@
+import com.acmetelecom.Callee;
+import com.acmetelecom.Caller;
 import fit.Parse;
 import fit.ColumnFixture;
 
@@ -47,7 +49,7 @@ public class GivenTheseCallsAreMade extends ColumnFixture {
         cal.set(Calendar.MILLISECOND, 0);
         long startInMills = cal.getTime().getTime();
         SystemUnderTest.bs.setTime(startInMills);
-        SystemUnderTest.bs.callInitiated(From, To);
+        SystemUnderTest.bs.callInitiated(new Caller(From), new Callee(To));
 //
 //        int endHour = Integer.parseInt(EndTime.split(":")[0]);
 //        int endMinute = Integer.parseInt(EndTime.split(":")[1]);
@@ -58,7 +60,7 @@ public class GivenTheseCallsAreMade extends ColumnFixture {
 //        long endInMills = cal.getTime().getTime();
         long endInMills = startInMills + Duration*1000;
         SystemUnderTest.bs.setTime(endInMills);
-        SystemUnderTest.bs.callCompleted(From, To);
+        SystemUnderTest.bs.callCompleted(new Caller(From), new Callee(To));
 
     }
 

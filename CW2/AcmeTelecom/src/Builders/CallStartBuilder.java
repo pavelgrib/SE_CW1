@@ -1,6 +1,8 @@
 package Builders;
 
 import com.acmetelecom.CallStart;
+import com.acmetelecom.Callee;
+import com.acmetelecom.Caller;
 import com.sun.istack.internal.Builder;
 
 /**
@@ -38,6 +40,6 @@ public class CallStartBuilder implements Builder {
     }
 
     public CallStart build(){
-        return new CallStart(caller,callee,time);
+        return new CallStart(new Caller(caller), new Callee(callee), time);
     }
 }
