@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009) (format=pdflatex 2012.3.3)  2 DEC 2012 13:21
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009) (format=pdflatex 2012.3.3)  2 DEC 2012 15:59
 entering extended mode
  %&-line parsing enabled.
 **report.tex
@@ -51,26 +51,6 @@ Package: titlesec 2007/08/12 v2.8 Sectioning titles
 \titlewidthlast=\dimen106
 \titlewidthfirst=\dimen107
 )
-(/usr/local/texlive/2009/texmf-dist/tex/latex/blindtext/blindtext.sty
-Package: blindtext 2009/12/29 V1.9c blindtext-Package
-
-(/usr/local/texlive/2009/texmf-dist/tex/latex/tools/xspace.sty
-Package: xspace 2006/05/08 v1.12 Space after command names (DPC,MH)
-)
-\c@blindtext=\count88
-\c@Blindtext=\count89
-\blind@countxx=\count90
-\blindtext@numBlindtext=\count91
-\blind@countyy=\count92
-\c@blindlist=\count93
-\c@blindlistlevel=\count94
-\c@blindlist@level=\count95
-\blind@listitem=\count96
-\c@blind@listcount=\count97
-\c@blind@levelcount=\count98
-\blind@mathformula=\count99
-\blind@Mathformula=\count100
-)
 (/usr/local/texlive/2009/texmf-dist/tex/latex/graphics/color.sty
 Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
 
@@ -81,84 +61,84 @@ Package color Info: Driver file: pdftex.def on input line 130.
 
 (/usr/local/texlive/2009/texmf-dist/tex/latex/pdftex-def/pdftex.def
 File: pdftex.def 2010/02/14 v0.04n Graphics/color for pdfTeX
-\Gread@gobject=\count101
+\Gread@gobject=\count88
 ))
 (./report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
 
 (/usr/local/texlive/2009/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count102
+\scratchcounter=\count89
 \scratchdimen=\dimen108
 \scratchbox=\box27
-\nofMPsegments=\count103
-\nofMParguments=\count104
+\nofMPsegments=\count90
+\nofMParguments=\count91
 \everyMPshowfont=\toks15
-\MPscratchCnt=\count105
+\MPscratchCnt=\count92
 \MPscratchDim=\dimen109
-\MPnumerator=\count106
+\MPnumerator=\count93
 \everyMPtoPDFconversion=\toks16
 )
-Chapter 1.
-
-Package blindtext Warning: welsh not defined, using English instead.
-(blindtext)                 on input line 10.
-
-
-! Package babel Error: You haven't loaded the option english yet.
-
-See the babel package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.10 \end
-         {document}
-You may proceed, but expect unexpected results
-
-[1
-
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 18.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 18.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 18.
+ [1
 
 {/usr/local/texlive/2009/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-(./report.aux
+Chapter 1.
+[1
 
-! Package babel Error: You haven't loaded the option english yet.
+]
+Chapter 2.
+[2
 
-See the babel package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.5 \select@language{english}
-                             
-You may proceed, but expect unexpected results
+]
+Chapter 3.
+[3
 
-) ) 
+]
+Chapter 4.
+[4
+
+]
+Chapter 5.
+[5
+
+] (./report.aux) ) 
 Here is how much of TeX's memory you used:
- 1357 strings out of 493773
- 16506 string characters out of 3145347
- 66906 words of memory out of 3000000
- 4696 multiletter control sequences out of 15000+200000
- 5949 words of font info for 17 fonts, out of 3000000 for 9000
+ 1240 strings out of 493773
+ 14432 string characters out of 3145347
+ 63444 words of memory out of 3000000
+ 4575 multiletter control sequences out of 15000+200000
+ 11767 words of font info for 30 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
- 23i,5n,33p,189b,127s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/local/texlive/2009/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc
-}</usr/local/texlive/2009/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb><
-/usr/local/texlive/2009/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on report.pdf (1 page, 28510 bytes).
+ 23i,6n,20p,189b,191s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/local/texlive/2009/texmf-dist/fonts/enc/dvips/cm-super/
+cm-super-t1.enc}</usr/local/texlive/2009/texmf-dist/fonts/type1/public/cm-super
+/sfbx2074.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/cm-super/s
+fbx2488.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/cm-super/sfr
+m1000.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/cm-super/sfrm1
+200.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/cm-super/sfrm248
+8.pfb>
+Output written on report.pdf (6 pages, 77131 bytes).
 PDF statistics:
- 15 PDF objects out of 1000 (max. 8388607)
+ 42 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
