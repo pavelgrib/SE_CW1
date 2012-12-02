@@ -1,12 +1,9 @@
 package tests;
 
 import com.acmetelecom.Biller;
-<<<<<<< HEAD
 import com.acmetelecom.Callee;
 import com.acmetelecom.Caller;
-=======
 import junit.framework.TestCase;
->>>>>>> 8e3d90bbce3c3581b8de15a20e220003a3bbe438
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.States;
@@ -24,13 +21,10 @@ import org.junit.runner.RunWith;
 @RunWith(JMock.class)
 public class CallEventMockTest extends TestCase {
 
-<<<<<<< HEAD
+
     Caller caller = new Caller("1");
     Callee callee = new Callee("2");
-=======
-    String caller = "123456789";
-    String callee = "312654978";
->>>>>>> 8e3d90bbce3c3581b8de15a20e220003a3bbe438
+
     Mockery context = new Mockery();
     Biller bs = context.mock(Biller.class);
     @Test
