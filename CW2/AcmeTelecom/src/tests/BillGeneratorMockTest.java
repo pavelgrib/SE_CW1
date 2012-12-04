@@ -34,9 +34,12 @@ public class BillGeneratorMockTest {
     }};
 
 
-    Customer cus1 = CustomerBuilder.aCustomer()
-                                    .withFullName("Alice").withPhoneNumber("123456789").ofPricePlane("asdf")
-                                    .build();
+    Customer cus1
+            = CustomerBuilder.aCustomer()
+                    .withFullName("Alice")
+                    .withPhoneNumber("123456789")
+                    .ofPricePlane("asdf")
+                    .build();
     Customer cus2 = CustomerBuilder.aCustomer()
                                     .withFullName("Bob").withPhoneNumber("987654321").ofPricePlane("asdf")
                                     .build();

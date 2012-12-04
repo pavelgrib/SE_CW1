@@ -13,7 +13,7 @@ import java.math.RoundingMode;
  * Date: 12-11-28
  * Time: 下午12:16
  */
-public class ProfitableRateEngine implements RateEngine{
+public class ProfitableRateEngine implements RateEngine {
 
     private int start = 7;
     private int end = 19;
