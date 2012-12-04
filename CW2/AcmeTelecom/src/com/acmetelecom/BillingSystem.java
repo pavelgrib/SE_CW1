@@ -10,13 +10,12 @@ public class BillingSystem implements Biller {
     private BillingSystemLogical billingSystemLogical = null;
 
     public BillingSystem(){
-        billingSystemLogical = new BillingSystemLogical(
-                                                        CentralCustomerDatabase.getInstance()
-                                                        ,CentralTariffDatabase.getInstance()
-                                                        ,new BillGenerator(HtmlPrinter.getInstance())
-                                                        ,new PeakSeperateOffPeakRateEngine()
-        );
-
+        billingSystemLogical
+                = new BillingSystemLogical(
+                    CentralCustomerDatabase.getInstance()
+                    ,CentralTariffDatabase.getInstance()
+                    ,new BillGenerator(HtmlPrinter.getInstance())
+                    ,new PeakSeperateOffPeakRateEngine());
     }
 
     @Override
