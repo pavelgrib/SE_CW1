@@ -57,13 +57,11 @@ frame=trBL,
 \section{Introduction} % paul
 \paragraph{}
 This report covers the analysis, testing, refactoring, and re-engineering of the AcmeTelecom billing system.  We saw our responsibility as two-fold: to build a well-tested, easy to maintain, coherent piece of software, and to use that software to implement a billing algorithm which fairly bills clients according to the time they spent calling during peak and off-peak times.  We relied heavily on Test Driven Development (TDD) practices in the way we devised tests, using unit tests to assert the state of our system, and mock tests to verify its behaviour.  To put in place tests for the initial code base, we were forced to make decisions about design patterns present (such as the singleton pattern in \verb+HtmlPrinter+) as well as make heavy use of interfaces to allow the JMock libraries to interact with out code.  Once satisfied with the initial functionality, we wrote integration tests and opened the development process to the business expert by writing a DSL around the components most responsible for how the billing system determines rates for customers.
-
 \paragraph{}
 We used these specificaitons to guide us in the design phase, where we ultimately chose to preserve the structure of the \verb+BillingSystem+ object as the class which is the central component collecting call information and passing them on to the \verb+BillGenerator+ rather than deciding what those calls shoudl cost.  We externalized that business logic by putting it in a separate class, thus making the original class more cohesive and simplifying the process to incorporate future changes.  We used a modern version control system (\emph{git}) and a continous integration server to manage the testing framework and automatically build after each commit.  Dependency matrix analysis helped to gain a big-picture understanding of the codebase without reading every line.
-
 \paragraph{}
 We were also careful not to over-optimize and decided to keep the general design of the system in tact, since it also inter-operates with other external libraries throughout the AcmeTelecom organization.  If we were to implement a brand new design, we would have loosened the coupling further by using Dependency Inversion model wherever possible and definining how interfaces should communicate rather than how concrete classes should change state.
-	
+
 
 \section{Analysis of Original Code} % paul
 \paragraph{}
@@ -75,16 +73,13 @@ The original code for the Billing System was well structured, though lacking any
 \caption{Original Dependency Structure of the Billing System}
 \end{changemargin}
 \end{figure}
-The 3-layer architecture is preferable in this case, since it is an in-house system with a small well-defined userbase and more a intricate architecture pattern would not be needed. The code also lacks interfaces to begin to easily write tests, especially with JMock, which requires an interface to mock behaviour.  
-
+The 3-layer architecture is preferable in this case, since it is an in-house system with a small well-defined userbase and more a intricate architecture pattern would not be needed. The code also lacks interfaces to begin to easily write tests, especially with JMock, which requires an interface to mock behaviour.
 \paragraph{}
 The \verb+CallEvent+ is the basic building block of a \verb+Call+, which consists of a \verb+CallStart+ and a \verb+CallEnd+, which both inherit from \verb+CallEvent+.  The \verb+BillingSystem+ receives method calls to \verb+callInitiated+ and \verb+callCompleted+ and logs them to a \verb+List<>+ object.  A call to the \verb+createCustomerBills+ calculates the costs of each call as it occurs in teh list, and then dispatches this list of \verb+Calls+ to the \verb+BillGenerator+ by invoking \verb+send+.  The \verb+BillGenerator+ uses an \verb+HtmlPrinter+ to output the results into HTML (in this example, to \verb+System.out+).  Other classes, such as \verb+MoneyFormatter+ and \verb+DaytimePeakPeriod+ act as helper classes.
-
 \section{Refactoring and Testing} % fred (maybe and paul)
 The original codebase design did not take tests into consideration. Therefore it is difficult to write unit tests and mock tests. One main factor is that the singletons \verb+CentralCustomerDatabase+ and \verb+CentralTarriffDatabases+ in \verb+BillingSystem+ class, and the singleton \verb+HtmlPrinter+ in BillGenerator prevent building mock tests for these classes. Another issues is dependency on concretion due to the lack of abstract layers, which causes high coupling and difficulty in test.   The default time stamp for call initiation and completion is given a direct reference to system clock. However this reduced the efficiency of testing because we have to wait for each call to run its whole time. 
-
-We make several refactoring to tackle the problems described above. First we pull out all the calculation partition of the \verb+BillingSystem+ and put it in a new class called \verb+BillingSystemLogical+. Then the function of \verb+BillingSystem+ is just to create an instance of \verb+BillingSystemLogical+ and to inject the objects and dependencies to it. Now the \verb+BillingSystemLogical+ is decoupled with the singletons \verb+CentralCustomerDatabase+ and \verb+CentralTarriffDatabase+. For \verb+BillGenerator+ we make a constructor for it, taking one parameter which can be any instance of \verb+Printer+ interface. The bill will be printed via the given printer instance. In production, a \verb+HtmlPrinter+ will be passed to the generator, while in testing, we passed a \verb+FakePrinter+ to it. 
-
+\paragraph{}
+We make several refactoring to tackle the problems described above. First we pull out all the calculation partition of the \verb+BillingSystem+ and put it in a new class called \verb+BillingSystemLogical+. Then the function of \verb+BillingSystem+ is just to create an instance of \verb+BillingSystemLogical+ and to inject the objects and dependencies to it. Now the \verb+BillingSystemLogical+ is decoupled with the singletons \verb+CentralCustomerDatabase+ and \verb+CentralTarriffDatabase+. For \verb+BillGenerator+ we make a constructor for it, taking one parameter which can be any instance of \verb+Printer+ interface. The bill will be printed via the given printer instance. In production, a \verb+HtmlPrinter+ will be passed to the generator, while in testing, we passed a \verb+FakePrinter+ to it.
 \begin{lstlisting}[ ]
     public BillingSystem(){
         billingSystemLogical 
@@ -95,10 +90,7 @@ We make several refactoring to tackle the problems described above. First we pul
                     ,new PeakSeperateOffPeakRateEngine());
     }
 \end{lstlisting}
-
 The dependency on concretion is solved by introducing interfaces between coupling classes. We extract four main methods of \verb+BillingSystem+ into \verb+Biller+ interface. \verb+BillingSystem+ and \verb+BillingSystemLogical+ as mentioned above both implementing the \verb+Biller+ interface. Messages and requests send to \verb+BillingSystem+ will be passed to \verb+BillingSystemLogical+ for specific operation. We extract a \verb+Generator+ interface out of \verb+BillGenerator+ for later fake testing and mock testing. A part of rate calculation code was pulled out of \verb+BillingSystemLogical+ and made a rate calculator class called \verb+ProfitableRateEngine+. Then we create an interface out of it called \verb+RateEngine+. The core of our new billing system, which is a rate engine, is a class implementing this \verb+RateEngine+ interface.
-
-
 \begin{figure}[!h]
 \begin{changemargin}{-20mm}{-20mm}
 \center
@@ -106,16 +98,14 @@ The dependency on concretion is solved by introducing interfaces between couplin
 \caption{Structure after Refactoring}
 \end{changemargin}
 \end{figure}
-
-
 A configurable time stamp could improve the test efficiency. This feature is implemented by generate a getter and setter methods for time stamp in \verb+BillingSystemLogical+ instead of using the default system clock. Thus in testing, the methods \verb+callInitiated()+ will use default system clock as a time stamp. Then we can avoid the waiting time by directly set the time to completion time. 
 
 
 \section{Creating a DSL} % fred
+\paragraph{}
 The original code base use primitive types directly for, for instance, caller, callee, and cost. We thought that was not very comprehensive and could be easily used in wrong order. The solution is introducing tiny types. The class \verb+Caller+ and \verb+Callee+ are the replacement of \verb+String+, which both have a \verb+toString()+ method to get the name. Similarly, we created \verb+Cost+ class in replacement of \verb+BigDecimal+ which has addition, comparison and getter methods. 
-
+\paragraph{}
 Several classes exist whose constructor takes three or more parameters or the parameters have the same type. For example, the constructor for \verb+Customer+ takes three string parameters which can be very confusing when initiating an object. For a class as such, we create a builder for it. In total, we have five builders: \verb+CallBuilder+, \verb+CallEndBuilder+, \verb+CallStartBuilder+, \verb+CustomerBuilder+, \verb+LineItemBuilder+. 
- 
 \begin{lstlisting}[ ]
     Customer cus1 
             = CustomerBuilder.aCustomer()
@@ -130,22 +120,25 @@ Several classes exist whose constructor takes three or more parameters or the pa
 % here we talk about the way to design new system and how the calculations happen
 % include some important lines of code as examples
 \paragraph{}
-As mentioned in the "Refactoring and Testing" section, we extracted the fee calculation part out of the the \verb+BillingSystem+ class. A new package \verb+rate+ was created under \verb+com.acmetelecom+, dealing with specific cost calculation. An interface \verb+RateEngine+ was provided to communicate with other parts of the system. 
+As mentioned in the "Refactoring and Testing" section, we extracted the fee calculation component from the \verb+BillingSystem+ class. A new \verb+rate+ package was created under \verb+com.acmetelecom+, to handle cost calculations, with a \verb+RateEngine+ interface provided to communicate with other parts of the system. 
 \begin{lstlisting}[ ]
      public interface RateEngine {
    	 public Cost calculateCost(Call call, Tariff tariff);
      }
 \end{lstlisting}
-The interface only contains one public method which requires a \verb+Call+ and the \verb+Tariff+ for that call and returns the \verb+Cost+.  There are several advantages of extracting the cost calculation into a seperate package. Firstly, we decoupled the original system, making it more reusable. Additionally, the whole system is more flexible to be implemented with different rate calculation in the future because different implementations are possible for one interface. This feature immediately helped us when implementing the new billing system. The concrete implementation of the original cost calculation logic was built into the \verb+ProfitableRateEngine+ class, which will compute cost under the peak rate as long as the call duration is touching peak. In order to calculate the cost fair to customers, alternatively, we created a new implementation of \verb+RateEngine+, called \verb+PeakSeperateOffPeakRateEngine+ to tackle the new cost calculation standard. The switching cost of the original billing system then is very low as we can easily achieve new features by changing \verb+RateEngine+ instance initialization from \verb+ProfitableRateEngine+ to \verb+PeakSeperateOffPeakRateEngine+ without breaking any other codes.
-
+The interface contains a public method taking a \verb+Call+ and a \verb+Tariff+ for that call as inputs and returning its \verb+Cost+.  There are several advantages to isolating the cost calculation in a seperate package. First, this breaks the close coupling initially present along functional components, making the resulting system more resuable.  Also, this approach increases the flexibility implement different rate calculations in future iterations.  Lastly, we were able to use this to implement the rate calculation methdology in the billing system. Initially, the original cost calculation logic built into the \verb+ProfitableRateEngine+ class computes the cost at the peak rate if the call overlaps with the peak period.  To calculate the fair cost to customers, in compliance with new regulations, we created a new implementation of \verb+RateEngine+, called \verb+PeakSeperateOffPeakRateEngine+. Thus, the development cost of switching to this new billing system is very low as we can and future rate changes only involve creating new classes implementing \verb+RateEngine+ without any further changes in the code.
 \paragraph{}
-All new cost calculation logics were handled within the new rate engine implementation. The general idea is that we introduced two variables \verb+peakTime+ and \verb+offPeakTime+. For different call lasting situations, in order to get cost, we multiply the \verb+peakTime+ and \verb+offPeakTime+ to different rates. The difficult point for this idea is that, we had to analyze the call duration such that we can accurately seperate  the peak time and off peak time. For making the class tidy and readable, a helper function \verb+calculateDuration(Call call)+ was added to analyze the call duration. Since we relied on the TDD development process, we've prepared all possible call senarios (mentioned later).It is convinient to program the duration logic based on the senarios. There are basically two situations; a call finished in one day and a call lasted overnight. For each situation, different conditions could be applied around the peak start point and peak end point. In the algorithm, we make use of the \verb+Calender+ API, helping us retrieve the Hour, Miniute, and Second from a \verb+Date+ type.  By comparing the call start point and call end point to those critical peak points, we differentiate various situations and figure out the peak time and off peak time.
+This new rate engine handles all cost calculation logic.  The variables \verb+peakTime+ and \verb+offPeakTime+ keep track of how much time is spent during the respective billing periods, and the final cost of the call is then the product of these variables by the rates being charged at these respective times:
+\begin{eqnarray}
+C = t_{peak} \cdot p_{peak} + t_{off-peak}\cdot p_{off-peak}
+\end{eqnarray}
+The challenging component of implementing this is the calculation for the call duration to accurately separately between the peak time and off peak time. To make the class tidy and readable, we added the \verb+calculateDuration(Call call)+ helper function to handle this calculation.  Using the TDD development process, we wrote tests to cover every combination of peak and off-peak times during a 24 hour period.  It is convinient to program the duration logic based on the 9 senarios. Generally, calls can either end on the same day they start or on the following day. In each case, different conditions could be applied around the peak start point and peak end point. In the algorithm, we make use of the built-in Java \verb+Calender+ class, to retrieve the hour, miniute, and second from a \verb+Date+ object.  By comparing the call start point and call end point to those critical peak points, we differentiate distinct situations and figure out the peak time and off peak time.
 
 % \emph{emphasize} \textbf{boldface}
 
 \section{Acceptance Tests} % cici and juno
 \paragraph{}
-We adopted the Framework for Integrated Tesing (FIT) to exam our end-to-end test. In FIT html requirement documents, we wrote 9 different cases according to different factors, i.e. starting point, ending point, and duration (As shown below). This covered all possible situations a customer may come across.
+We adopted the Framework for Integrated Tesing (FIT) to conduct our end-to-end testing. The FIT html code specifies 9 different tests to account for different starting points, ending points, and durations (As shown below). This covers all possible scenarios in a 24 hour period.
 \begin{figure}[!h]
 \begin{changemargin}{-20mm}{-20mm}
 \center
@@ -153,8 +146,7 @@ We adopted the Framework for Integrated Tesing (FIT) to exam our end-to-end test
 \caption{Acceptance-Test Scenario (assuming 7:00-19:00 peak period)}
 \end{changemargin}
 \end{figure}
-
-In the requirement documents, by default, the system is initialized as peak time starts at 7:00:00 and ends at 19:00:00. A customer information table will be given to represent all customers that are eligible to have a bill. Different calls are speicified in the Call table, which simulates the call process. The last table is showing the bills and this is the table that will be examed by the test. In order to execute FIT test, we wrote some classes to parse these tables. 
+By default, the requirement documents initialize the peak time to start at 7:00:00 and end at 19:00:00. A customer information table is given to represent all customers that are eligible to have a bill. Different calls are speicified in the Call table, which simulates the call process. The last table shows the bills and this is the table that will be examed by the test. In order to execute FIT test, we wrote some classes to parse these tables. 
 \begin{center}
     \begin{tabular}{ | l | p{8cm} |}
     \hline
@@ -170,18 +162,17 @@ In the requirement documents, by default, the system is initialized as peak time
 \end{center}
 
 \paragraph{}
-It is worth noting that we added three fake classes  \verb+FakeCustomerDatabase+, \verb+FakeGenerator+, \verb+FakePrinter+, to facilitate our FIT test. This is because CentralCustomerDatabase is a singleton from other system and we do not have access to that database. While there is a CustomerDatabase interface, we can have our own fake database implementation based on ArrayList to save customers information from FIT requirements. FakeGenerator and FakePrinter are created to fullfil the table output format in the requirement. 
-
+We also added three fake classes \verb+FakeCustomerDatabase+, \verb+FakeGenerator+, and \verb+FakePrinter+, to facilitate our FIT test. This is because \verb+CentralCustomerDatabase+ is externally implemented using a singleton pattern, and does not allow instantiation in a testing environment. While there is a \verb+CustomerDatabase+ interface, we created our own fake database implementation (with an \verb+ArrayList+ underlying data structure) to save customer information for FIT purposes. \verb+FakeGenerator+ and \verb+FakePrinter+ are created to provide the table output format in the requirement.
 \begin{figure}
 \centering
 \mbox{\subfigure{\includegraphics[width=3in]{FIT-result-before-change.png}
 \quad
 \subfigure{\includegraphics[width=3in]{FIT-result-after-change.png} }}}
 \caption{FIT Results Comparision}
+\label{fig:fit_results}
 \end{figure}
-
-When running the FIT scenarios running with the original rate calculation engine, we failed in most FIT test because the actual costs were not produced as expections. After refactoring with the usage of the new RateEngine implementation, we made all tests pass, which means we met the need of  specification. 
-
+\paragraph{}
+As we showed in Figure ~\ref{fig:fit_results}, most of the FIT scenario tests failed with the original rate calculation engine, as one would expect given that the system was not configured for the new requirements.  After refactoring, and with the new RateEngine implementation, all tests passed, showing that the system is now compliant with the new requirements. 
 
 
 % \begin{figure}[!h]
@@ -194,6 +185,10 @@ When running the FIT scenarios running with the original rate calculation engine
 
 \section{Conclusions and Recommendations} % leah
 \paragraph{}
+Throughout this assignment, we adhered to the software engineering principles learned in lectures.  We used tools such as git (source control), Jenkins (continous integration), JUnit and JMock (testing), IntelliJ Dependency Matrix (code structure analysis), IntelliJ Coverage Report (assessing how much of the project has been tested), and FIT (for acceptance tests).  Furthermore, we adhered to sound software engineering principles by using appropriate design patterns such as tiny types for \verb+Caller+, \verb+Callee+, and \verb+Cost+, and dependency inversion for \verb+RateEngine+ calculations.
+One of the problems we encountered was in the refactoring stage of the development, when we attempted to add tiny types.  Because the external libraries return \verb+BigDecimal+ for cost and \verb+String+ for a customer phone number, we had to be very careful to what extent these tiny types were used throughout our code.  Although JMock requires class interfaces to work, we found a way of mocking a concrete class for cases where objects from external libaries needed to be mocked and no interface was available.
+
+
 Tools used (Git, Jenkins, IntelliJ Coverage Report, IntelliJ Dependency Matrix).  Problems enountered like refactoring for Tiny Types, Mocking with concreted classes rather than interfaces.
 
 Conclusions and Recommendations
