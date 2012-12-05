@@ -2,6 +2,9 @@ package com.acmetelecom;
 
 import java.math.BigDecimal;
 
+/*
+Tiny type to encapsulate the cost variable which is a BigDecimal type
+ */
 public class Cost {
     private BigDecimal callCost;
 

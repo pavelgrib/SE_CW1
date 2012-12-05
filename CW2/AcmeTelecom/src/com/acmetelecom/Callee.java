@@ -1,5 +1,8 @@
 package com.acmetelecom;
 
+/*
+Tiny type to encapsulate callee's name
+ */
 public class Callee {
     private final String callee;
 

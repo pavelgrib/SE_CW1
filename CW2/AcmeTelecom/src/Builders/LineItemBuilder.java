@@ -1,4 +1,4 @@
-package Builders;
+package builders;
 
 import com.acmetelecom.Call;
 import com.acmetelecom.Cost;
@@ -13,6 +13,10 @@ import java.math.BigDecimal;
  * Date: 30/11/2012
  * Time: 19:43
  * To change this template use File | Settings | File Templates.
+ */
+
+/*
+Builder to build a LineItem object in DSL style
  */
 public class LineItemBuilder implements Builder {
     private Call call;

@@ -1,9 +1,9 @@
 package tests;
 
-import Builders.CallBuilder;
-import Builders.CallEndBuilder;
-import Builders.CallStartBuilder;
-import Builders.CustomerBuilder;
+import builders.CallBuilder;
+import builders.CallEndBuilder;
+import builders.CallStartBuilder;
+import builders.CustomerBuilder;
 import com.acmetelecom.Call;
 import com.acmetelecom.HtmlPrinter;
 import com.acmetelecom.Printer;
@@ -21,6 +21,10 @@ import static junit.framework.TestCase.assertTrue;
  * Date: 30/11/2012
  * Time: 23:17
  * To change this template use File | Settings | File Templates.
+ */
+
+/*
+This is the test for HtmlPrinter class
  */
 public class HtmlPrinterTest{
 
@@ -47,18 +51,22 @@ public class HtmlPrinterTest{
                 s.contains("Acme Telecom");
     }
 
+    //method to check if the string is of valid customer detail format
     private boolean containCustomerDetails(Customer c, String s){
         return s.contains("<h2>"+c.getPhoneNumber()+"/"+c.getFullName()+" - Price Plan: "+c.getPricePlan()+"</h2>");
     }
 
+    //method to check if the string is of valid call history format
     private boolean containsCorrectCallHistory(Call call, Customer c2, String s, String cost){
         return s.contains("<td>"+call.date().toString()+"</td><td>"+c2.getFullName()+"</td><td>"+call.durationSeconds()+"</td><td>"+cost+"</td>");
     }
 
+    //method to remove spaces and new line symbols for test reason
     private String removeSpacesAndNewLine(String s){
         return s.replaceAll("\n", "").replaceAll("\r", "").trim();
     }
 
+    //generate a bill
     private String billGenerator(){
 
         Customer cus1 = CustomerBuilder.aCustomer()
@@ -87,11 +95,13 @@ public class HtmlPrinterTest{
     }
     /***********/
 
+    //test if the bill is correctly formatted
     @Test
     public void testValidHtml(){
         assertTrue(htmlFormatChecker(billGenerator()));
     }
 
+    //test if the bill's caller details is correctly formatted
     @Test
     public void testCallerDetails(){
         Customer cus1 = CustomerBuilder.aCustomer()
@@ -119,6 +129,7 @@ public class HtmlPrinterTest{
         containCustomerDetails(cus1,removeSpacesAndNewLine(this.out.toString()));
     }
 
+    //check to see if the bill contains correct call history
     @Test
     public void testCallHistory(){
         Customer cus1 = CustomerBuilder.aCustomer()

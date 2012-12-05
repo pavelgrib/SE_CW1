@@ -1,6 +1,6 @@
 package tests;
 
-import Builders.*;
+import builders.*;
 import com.acmetelecom.Call;
 import com.acmetelecom.LineItem;
 import com.acmetelecom.Printer;
@@ -8,8 +8,6 @@ import com.acmetelecom.customer.Customer;
 import fake.FakeGenerator;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
-import org.jmock.integration.junit4.JUnit4Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -23,14 +21,20 @@ import java.util.List;
  * Time: 15:03
  * To change this template use File | Settings | File Templates.
  */
+
+/*
+This is the unit test for FakeGenerator class
+ */
 public class FakeGeneratorTest {
     public org.hamcrest.Matcher<String> anyString() {
         return new org.hamcrest.core.IsAnything<String>();
     }
 
-    private Mockery context = new JUnit4Mockery() {{
-        setImposteriser(ClassImposteriser.INSTANCE);
-    }};
+//    private Mockery context = new JUnit4Mockery() {{
+//        setImposteriser(ClassImposteriser.INSTANCE);
+//    }};
+
+    private Mockery context = new Mockery();
 
 
     Customer cus1 = CustomerBuilder.aCustomer()

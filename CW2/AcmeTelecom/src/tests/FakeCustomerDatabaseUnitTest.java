@@ -1,6 +1,6 @@
 package tests;
 
-import Builders.CustomerBuilder;
+import builders.CustomerBuilder;
 import com.acmetelecom.customer.Customer;
 import fake.FakeCustomerDatabase;
 import org.junit.Test;
@@ -9,7 +9,6 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
 /**
  * Created with IntelliJ IDEA.

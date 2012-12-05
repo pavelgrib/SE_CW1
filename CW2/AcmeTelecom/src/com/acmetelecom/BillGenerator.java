@@ -2,6 +2,10 @@ package com.acmetelecom;
 
 import com.acmetelecom.customer.Customer;
 
+/*
+The class for printing bills
+Refactored so that we can pass a specific Printer in constructor
+ */
 public class BillGenerator implements Generator {
     private Printer printer;
 

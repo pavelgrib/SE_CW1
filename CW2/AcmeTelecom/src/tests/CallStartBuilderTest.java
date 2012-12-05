@@ -1,6 +1,6 @@
 package tests;
 
-import Builders.CallStartBuilder;
+import builders.CallStartBuilder;
 import com.acmetelecom.CallStart;
 import org.junit.Test;
 
@@ -13,6 +13,12 @@ import static junit.framework.TestCase.assertEquals;
  * Time: 01:32
  * To change this template use File | Settings | File Templates.
  */
+
+
+/*
+Test for CallStartBuilder to see if it builds a correct CallStart object
+ */
+
 public class CallStartBuilderTest {
     @Test
     public void callerTest(){

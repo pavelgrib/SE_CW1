@@ -1,4 +1,4 @@
-package Builders;
+package builders;
 
 import com.acmetelecom.CallEnd;
 import com.acmetelecom.Callee;
@@ -12,6 +12,10 @@ import com.sun.istack.internal.Builder;
  * Time: 22:20
  * To change this template use File | Settings | File Templates.
  */
+/*
+Builder to build a CallEnd object in DSL style
+ */
+
 public class CallEndBuilder implements Builder {
     private String caller;
     private String callee;

@@ -18,6 +18,11 @@ import java.util.List;
  * Time: 14:42
  * To change this template use File | Settings | File Templates.
  */
+
+/*
+The calculation or logical part of Billing System
+The dependencies in constructor are passed from BillingSystem.class
+ */
 public class BillingSystemLogical implements Biller{
 
     private List<CallEvent> callLog = new ArrayList<CallEvent>();

@@ -1,4 +1,4 @@
-package Builders;
+package builders;
 
 import com.acmetelecom.CallStart;
 import com.acmetelecom.Callee;
@@ -12,6 +12,10 @@ import com.sun.istack.internal.Builder;
  * Time: 22:15
  * To change this template use File | Settings | File Templates.
  */
+/*
+Builder to build a CallStart object in DSL style
+ */
+
 public class CallStartBuilder implements Builder {
     private String caller;
     private String callee;

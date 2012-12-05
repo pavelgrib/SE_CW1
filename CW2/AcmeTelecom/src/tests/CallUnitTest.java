@@ -1,7 +1,6 @@
 package tests;
 
 import com.acmetelecom.*;
-import com.acmetelecom.rate.DaytimePeakPeriod;
 import org.junit.Test;
 
 import java.text.SimpleDateFormat;
@@ -15,6 +14,10 @@ import static org.junit.Assert.assertEquals;
  * Date: 12-11-30
  * Time: 11:21 AM
  */
+
+/*
+Unit test for Call.class
+ */
 public class CallUnitTest {
 
     public long time = 1354060800000l;  // set test time to 2012-11-28 0:00
@@ -23,6 +26,7 @@ public class CallUnitTest {
     public CallStart callStart = new CallStart(caller, callee,time);
     public CallEnd callEnd = new CallEnd(caller, callee,(time+10*1000));
     public Call call = new Call(callStart,callEnd);
+
 
     @Test
     public void testGetCallee(){

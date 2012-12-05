@@ -33,6 +33,7 @@ public class BillingSystemLogicalTest {
     BillingSystemLogical billingSystemLogical = new BillingSystemLogical(customerDB, tariffDB, generator, rateEngine);
 
 
+    //Check to see if the time getter and setter is okay
     @Test
     public void testTimeSetterAndGetter() {
         long time = 111111;
@@ -40,6 +41,7 @@ public class BillingSystemLogicalTest {
         assertEquals(billingSystemLogical.getTime(), time);
     }
 
+    //check to see if the calling process reflects correctly
     @Test
     public void testCallingProgress(){
         Caller caller = new Caller("123123123123");

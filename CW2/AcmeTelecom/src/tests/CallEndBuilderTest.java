@@ -1,6 +1,6 @@
 package tests;
 
-import Builders.CallEndBuilder;
+import builders.CallEndBuilder;
 import com.acmetelecom.CallEnd;
 import org.junit.Test;
 
@@ -12,6 +12,10 @@ import static junit.framework.TestCase.assertEquals;
  * Date: 01/12/2012
  * Time: 01:27
  * To change this template use File | Settings | File Templates.
+ */
+
+/*
+Test for CallEndBuilder to see if it builds a correct CallEnd object
  */
 public class CallEndBuilderTest {
 

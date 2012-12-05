@@ -1,4 +1,4 @@
-package Builders;
+package builders;
 
 import com.acmetelecom.customer.Customer;
 import com.sun.istack.internal.Builder;
@@ -10,6 +10,10 @@ import com.sun.istack.internal.Builder;
  * Time: 23:08
  * To change this template use File | Settings | File Templates.
  */
+/*
+Builder to build a Customer object in DSL style
+ */
+
 public class CustomerBuilder implements Builder {
     private String phoneNumber;
     private String fullName;

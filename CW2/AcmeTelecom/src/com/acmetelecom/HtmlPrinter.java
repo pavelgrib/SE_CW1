@@ -2,6 +2,9 @@ package com.acmetelecom;
 
 import java.io.PrintStream;
 
+/*
+The html formatter for a bill
+ */
 public class HtmlPrinter implements Printer {
 
     private static Printer instance = new HtmlPrinter(System.out);
@@ -16,6 +19,7 @@ public class HtmlPrinter implements Printer {
         return instance;
     }
 
+    //format the caller's name, phone number and price plan
     public void printHeading(String name, String phoneNumber, String pricePlan) {
         beginHtml();
         printStream.println(h2(name + "/" + phoneNumber + " - " + "Price Plan: " + pricePlan));
@@ -35,6 +39,7 @@ public class HtmlPrinter implements Printer {
         return "<h2>" + text + "</h2>";
     }
 
+    //format callee's name, phone number, duration time and cost
     public void printItem(String time, String callee, String duration, String cost) {
         printStream.println(tr(td(time) + td(callee) + td(duration) + td(cost)));
     }

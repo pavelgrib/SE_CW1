@@ -1,6 +1,6 @@
 package tests;
 
-import Builders.*;
+import builders.*;
 import com.acmetelecom.Call;
 import com.acmetelecom.Cost;
 import com.acmetelecom.LineItem;
@@ -17,6 +17,10 @@ import static junit.framework.TestCase.assertEquals;
  * Date: 01/12/2012
  * Time: 01:51
  * To change this template use File | Settings | File Templates.
+ */
+
+/*
+Test for LineItemBuilder to see if it can build a correct LineItem
  */
 public class LineItemBuilderTest {
     Customer cus1 = CustomerBuilder.aCustomer()

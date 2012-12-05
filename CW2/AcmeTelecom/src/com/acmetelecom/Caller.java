@@ -1,5 +1,8 @@
 package com.acmetelecom;
 
+/*
+Tiny type to encapsulate caller's name
+ */
 public class Caller {
     private final String caller;
 

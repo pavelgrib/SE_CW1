@@ -3,7 +3,10 @@ package com.acmetelecom;
 import com.acmetelecom.customer.CentralCustomerDatabase;
 import com.acmetelecom.customer.CentralTariffDatabase;
 import com.acmetelecom.rate.PeakSeperateOffPeakRateEngine;
-
+/*
+This cover class for logic part of billing system.
+Injecting dependencies to BillingSystemLogical
+*/
 public class BillingSystem implements Biller {
 
 

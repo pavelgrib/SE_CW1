@@ -1,9 +1,9 @@
 package tests;
 
-import Builders.CallBuilder;
-import Builders.CallEndBuilder;
-import Builders.CallStartBuilder;
-import Builders.CustomerBuilder;
+import builders.CallBuilder;
+import builders.CallEndBuilder;
+import builders.CallStartBuilder;
+import builders.CustomerBuilder;
 import com.acmetelecom.Call;
 import com.acmetelecom.customer.Customer;
 import fake.FakePrinter;

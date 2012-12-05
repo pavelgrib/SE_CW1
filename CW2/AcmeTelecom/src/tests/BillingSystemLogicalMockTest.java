@@ -1,7 +1,7 @@
 package tests;
 
 import com.acmetelecom.*;
-import Builders.CustomerBuilder;
+import builders.CustomerBuilder;
 import com.acmetelecom.customer.Customer;
 import com.acmetelecom.customer.CustomerDatabase;
 import com.acmetelecom.customer.Tariff;

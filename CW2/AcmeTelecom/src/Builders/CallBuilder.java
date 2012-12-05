@@ -1,4 +1,4 @@
-package Builders;
+package builders;
 
 import com.acmetelecom.Call;
 import com.acmetelecom.CallEvent;
@@ -10,6 +10,10 @@ import com.sun.istack.internal.Builder;
  * Date: 30/11/2012
  * Time: 20:20
  * To change this template use File | Settings | File Templates.
+ */
+
+/*
+Builder to build a Call object in DSL style
  */
 public class CallBuilder implements Builder {
     private CallEvent start;

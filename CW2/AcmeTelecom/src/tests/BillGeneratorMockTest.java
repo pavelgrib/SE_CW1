@@ -1,13 +1,14 @@
 package tests;
 
-import com.acmetelecom.*;
-import Builders.*;
+import builders.*;
+import com.acmetelecom.BillGenerator;
+import com.acmetelecom.Call;
+import com.acmetelecom.LineItem;
+import com.acmetelecom.Printer;
 import com.acmetelecom.customer.Customer;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
-import org.jmock.integration.junit4.JUnit4Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -22,6 +23,10 @@ import java.util.List;
  * Time: 18:32
  * To change this template use File | Settings | File Templates.
  */
+
+/*
+Mock test for BillGenerator
+ */
 @RunWith(JMock.class)
 public class BillGeneratorMockTest {
 
@@ -29,9 +34,11 @@ public class BillGeneratorMockTest {
         return new org.hamcrest.core.IsAnything<String>();
     }
 
-    private Mockery context = new JUnit4Mockery() {{
-        setImposteriser(ClassImposteriser.INSTANCE);
-    }};
+//    private Mockery context = new JUnit4Mockery() {{
+//        setImposteriser(ClassImposteriser.INSTANCE);
+//    }};
+
+    private  Mockery context = new Mockery();
 
 
     Customer cus1
@@ -45,6 +52,7 @@ public class BillGeneratorMockTest {
                                     .build();
 
 
+    //check if can generate a bill for one call
     @Test
     public void sendWithOneCallTest(){
 
@@ -80,6 +88,7 @@ public class BillGeneratorMockTest {
         billGenerator.send(cus1,lineItems,totalBill);
     }
 
+    //check if can generate a bill for multiple calls
     @Test
     public void sendWithMultipleCallsTest(){
 
