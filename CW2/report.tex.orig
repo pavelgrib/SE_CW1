@@ -4,8 +4,7 @@
 \usepackage{titlesec, color}
 \usepackage{anysize}
 \usepackage{listings}
-\usepackage{subfigure}
-\usepackage{hyperref}
+\usepackage{subfigure} 
 
 \usepackage[latin1]{inputenc}
 \usepackage{graphicx}
@@ -78,13 +77,11 @@ The original 3-layer architecture is preferable in this case, since it is an in-
 \paragraph{}
 The \verb+CallEvent+ is the basic building block of a \verb+Call+, which consists of a \verb+CallStart+ and a \verb+CallEnd+, which both inherit from \verb+CallEvent+.  The \verb+BillingSystem+ receives method calls to \verb+callInitiated+ and \verb+callCompleted+ and logs them to a \verb+List<>+ object.  A call to the \verb+createCustomerBills+ calculates the costs of each call as it occurs in teh list, and then dispatches this list of \verb+Calls+ to the \verb+BillGenerator+ by invoking \verb+send+.  The \verb+BillGenerator+ uses an \verb+HtmlPrinter+ to output the results into HTML (in this example, to \verb+System.out+).  Other classes, such as \verb+MoneyFormatter+ and \verb+DaytimePeakPeriod+ act as helper classes.
 
-\section{Refactoring} % fred (maybe and paul)
+\section{Refactoring and Testing} % fred (maybe and paul)
 To write tests, we first needed to extract interfaces to objects requiring tests.  Furthermore, the external classes \verb+CentralCustomerDatabase+ and \verb+CentralTarriffDatabases+ and the local \verb+HtmlPrinter+ use the singleton pattern, which makes the constructor private and does not allow us to test their functionality directly.  Another issue we faced is the code's dependency on concretion, which causes high coupling.  Further difficult in testing calls also arose in the way the system handled timestamps.  It relied on the system clock, thus not allowing us to test calls without waiting for a specified passage of time.
 \paragraph{}
-We began with creating \verb+FakeCallStart+ and \verb+FakeCallEnd+ classes, allowing us to initialise them with specific timestamps, which is useful for testing calls with pre-specified time periods.  We then extracted an interfaces for \verb+BillGenerator+, \verb+BillingSystem+ and, allowing us to test behaviour of classes which depend on them via mock tests.  
-\paragraph{}
-Next, we decided to extract the calculation logic from \verb+BillingSystem+ into a new class called \verb+BillingSystemLogical+. In our code, the \verb+BillingSystem+ is as a front-end which delegates \verb+callInitiated+, \verb+callCompleted+, and \verb+createCustomerBills+ messages appropriately.  Now, the \verb+BillingSystemLogical+ is decoupled from the external database classes. By modifying its constructor to accept \verb+Printer+ interface-compatible objects, we inverted the dependency of \verb+BillGenerator+ on \verb+HtmlPrinter+.  For testing, we chose to break the singleton pattern in \verb+HtmlPrinter+ by adding another constructor takes an alternate \verb+PrintStream+, allowing us to write a test to verify what it prints by redirecting the output.  Our research showed this to be the best course of action (\href{http://googletesting.blogspot.co.uk/2008/05/tott-using-dependancy-injection-to.html}{weblink: \emph{Google Testing Blog}}).  The bill is printed via the provided printer instance. In production, an \verb+ HtmlPrinter+ is passed to the generator, while in testing, we passed in a \verb+FakePrinter+.
-Below is the code we use to create a billing system:
+We began with creating \verb+FakeCallStart+ and \verb+FakeCallEnd+ classes, allowing us to initialise them with specific timestamps, which is useful for testing calls with pre-specified time periods.  We then extracted interfaces for \verb+BillGenerator+, allowing us to test behaviour of classes depending on it via mock tests.
+Next, we decided to extract the calculation logic from \verb+BillingSystem+ into a new class called \verb+BillingSystemLogical+. In our code, the utility of \verb+BillingSystem+ is as a front-end to direct \verb+callInitiated+ and \verb+callCompleted+ messages appropriately and to pass requests to create bills.  Now, the \verb+BillingSystemLogical+ is decoupled from \verb+CentralCustomerDatabase+ and \verb+CentralTarriffDatabase+. We also inverted the dependency of \verb+BillGenerator+ on \verb+HtmlPrinter+ by modifying its constructor, which now takes an instance of the \verb+Printer+ interface.  For testing, we had to break the singleton pattern in \verb+HtmlPrinter+ by adding another constructor takes an alternate \verb+PrintStream+, allowing us to write a test to verify what it prints by redirecting the output.  The bill is printed via the provided printer instance. In production, an \verb+HtmlPrinter+ is passed to the generator, while in testing, we passed a \verb+FakePrinter+ to it.
 \begin{lstlisting}[ ]
     public BillingSystem(){
         billingSystemLogical 
@@ -95,7 +92,7 @@ Below is the code we use to create a billing system:
                     ,new PeakSeperateOffPeakRateEngine());
     }
 \end{lstlisting}
-The dependency on concretion is reduced by introducing interfaces between coupled classes. We extract four main methods of \verb+BillingSystem+ into \verb+Biller+ interface. \verb+BillingSystem+ and \verb+BillingSystemLogical+ both implementing this interface.  Messages and requests sent to \verb+BillingSystem+ are passed to \verb+BillingSystemLogical+ for specific operation. We extract a \verb+Generator+ interface out of \verb+BillGenerator+ for later fake testing and mock testing. A part of rate calculation code was pulled out of \verb+BillingSystemLogical+ and made a rate calculator class called \verb+ProfitableRateEngine+. Then we create an interface out from it called \verb+RateEngine+. The core of our new billing system, which is a rate engine, is a class implementing this \verb+RateEngine+ interface.
+The dependency on concretion is reduced by introducing interfaces between coupled classes. We extract four main methods of \verb+BillingSystem+ into \verb+Biller+ interface. \verb+BillingSystem+ and \verb+BillingSystemLogical+ both implementing this interface.  Messages and requests sent to \verb+BillingSystem+ are passed to \verb+BillingSystemLogical+ for specific operation. We extract a \verb+Generator+ interface out of \verb+BillGenerator+ for later fake testing and mock testing. A part of rate calculation code was pulled out of \verb+BillingSystemLogical+ and made a rate calculator class called \verb+ProfitableRateEngine+. Then we create an interface out of it called \verb+RateEngine+. The core of our new billing system, which is a rate engine, is a class implementing this \verb+RateEngine+ interface.
 \begin{figure}[!h]
 \begin{changemargin}{-20mm}{-20mm}
 \center
@@ -103,27 +100,14 @@ The dependency on concretion is reduced by introducing interfaces between couple
 \caption{Structure after Refactoring}
 \end{changemargin}
 \end{figure}
-A configurable timestamp could improve the test efficiency. This feature is implemented by generating getter and setter methods for time stamp in \verb+BillingSystemLogical+ instead of using the default system clock. Thus in testing, the methods \verb+callInitiated()+ will use default system clock as a time stamp. Then we can avoid the waiting time by directly set the time to completion time. 
-\paragraph{}
-Lastly, the original code used primitive types for caller, callee, and cost. This approach is error-prone, so we introduced the tiny types \verb+Caller+ \verb+Callee+ and \verb+Cost+.  This reduces potential for errors and makes the code more readable.
+A configurable time stamp could improve the test efficiency. This feature is implemented by generate a getter and setter methods for time stamp in \verb+BillingSystemLogical+ instead of using the default system clock. Thus in testing, the methods \verb+callInitiated()+ will use default system clock as a time stamp. Then we can avoid the waiting time by directly set the time to completion time. 
 
-\section{Testing}
-\paragraph{}
-Generally, we used JUnit to test for the state of objects, and JMock to tests for behaviour.  
-\paragraph{}
-Data wrapper classes such as \verb+LineItem+ and \verb+Call+ were tests using unit tests.  
-We wrote the following mock tests:
-\begin{itemize}
-\item BillGeneratorMockTest to ensure that it generates a bill with different combinations of calls.
-\item CallEvent to ensure that when a call event happens, the billing system is aware of it
-\item BillingSystemLogical to make sure that the correct bills are generated when we vary the number of customers who make calls and the number of calls they make
-\item
-\end{itemize}
 
 \section{Creating a DSL} % fred
- 
 \paragraph{}
-In the original code, several classes exist whose constructor takes three or more parameters or the parameters have the same type. For example, the constructor for \verb+Customer+ takes three string parameters which can be very confusing when initiating an object. For a class as such, we create a builder for it. In total, we have five builders: \verb+CallBuilder+, \verb+CallEndBuilder+, \verb+CallStartBuilder+, \verb+CustomerBuilder+, \verb+LineItemBuilder+. 
+The original code base use primitive types directly for, for instance, caller, callee, and cost. We thought that was not very comprehensive and could be easily used in wrong order. The solution is introducing tiny types. The class \verb+Caller+ and \verb+Callee+ are the replacement of \verb+String+, which both have a \verb+toString()+ method to get the name. Similarly, we created \verb+Cost+ class in replacement of \verb+BigDecimal+ which has addition, comparison and getter methods. 
+\paragraph{}
+Several classes exist whose constructor takes three or more parameters or the parameters have the same type. For example, the constructor for \verb+Customer+ takes three string parameters which can be very confusing when initiating an object. For a class as such, we create a builder for it. In total, we have five builders: \verb+CallBuilder+, \verb+CallEndBuilder+, \verb+CallStartBuilder+, \verb+CustomerBuilder+, \verb+LineItemBuilder+. 
 \begin{lstlisting}[ ]
     Customer cus1 
             = CustomerBuilder.aCustomer()
@@ -132,12 +116,7 @@ In the original code, several classes exist whose constructor takes three or mor
                     .ofPricePlane("Default plan")
                     .build();
 \end{lstlisting}
-The builders perform the following functions:
-\begin{itemize}
-\item CustomerBuilder: this class builds a Customer object by building up phone number, name, and price plan.
-\item CallBuilder: allows the user to create a Call object using start and end times
-\item LineItemBuilder: creates a line item object consisting of a call and an associated cost
-\end{itemize}
+
 
 \section{Implementing the New Billing System}  % juno
 % here we talk about the way to design new system and how the calculations happen
@@ -212,16 +191,28 @@ Throughout this assignment, we adhered to the software engineering principles le
 One of the problems we encountered was in the refactoring stage of the development, when we attempted to add tiny types.  Because the external libraries return \verb+BigDecimal+ for cost and \verb+String+ for a customer phone number, we had to be very careful to what extent these tiny types were used throughout our code.  Although JMock requires class interfaces to work, we found a way of mocking a concrete class for cases where objects from external libraries needed to be mocked and no interface was available.
 
 
+<<<<<<< HEAD
+% Tools used (Git, Jenkins, IntelliJ Coverage Report, IntelliJ Dependency Matrix).  Problems enountered like refactoring for Tiny Types, Mocking with concreted classes rather than interfaces.
+=======
 %Tools used (Git, Jenkins, IntelliJ Coverage Report, IntelliJ Dependency Matrix).  Problems enountered like refactoring for %Tiny Types, Mocking with concreted classes rather than interfaces.
+>>>>>>> 66e2eece7e4bd1a6117f34225a31cbaa8ec9b8d0
 
 %Conclusions and Recommendations
 %To get our project releasing as a commercial product, we followed the instructions of how to put together a deployment %pipeline. During the whole deployment, we used IntelliJ IDEA as the development environment, Git for version control and %Jenkins for continuous integration and automatic deployment.
 
+<<<<<<< HEAD
+% We felt more comfortable to use git for version control and collaboration because we used Git in the last course work and we are more familiar with it than other version control tools.
+% The procedure of our product (codebase)
+% //The dashed line means product without tests (unreliable and fragile)
+% //The continuous line means product after tests (solid and strongly-structured)
+% //This image can be modified if anyone wants to change it~
+=======
 %We felt more comfortable to use git for version control and collaboration because we used Git in the last course work and %we are more familiar with it than other version control tools.
 %The procedure of our product (codebase)
 %//The dashed line means product without tests (unreliable and fragile)
 %//The continuous line means product after tests (solid and strongly-structured)
 %//This image can be modified if anyone wants to change it~
+>>>>>>> 66e2eece7e4bd1a6117f34225a31cbaa8ec9b8d0
 
 \begin{figure}[!h]
 \begin{changemargin}{-20mm}{-20mm}
@@ -232,8 +223,13 @@ One of the problems we encountered was in the refactoring stage of the developme
 \end{figure} 
 
 
+<<<<<<< HEAD
+At first we found the legacy codebase was tightly couple and not easily testable. We had to break the dependencies and create new interfaces to do unit tests of the main methods and functionalities. Then the shape of the codebase is much clearer after all the tests passed. To achieve the requirements which assigned by Stephen, we should first write requirement analysis report (or RFP requirement for Proposal) at the beginning and then write the acceptance tests. We can monitor the conditions and coverage of the tests by IntelliJ Coverage Report.
+Before we started refactoring it, itÕs quite important to make our code more like natural language by taking the advantages of domain specific language. During refactoring, we did tests and build with Ant and integrated by Jenkins to make sure every change we made was correct. WhatÕs more, Jenkins will send us emails if our jobs are failed.
+=======
 %At first we found the legacy codebase was not modular or easily testable after analysis with the help of IntelliJ Dependency %Matrix. We had to break the dependencies and create new interfaces to do unit tests of the main methods and %functionalities. Then the shape of the codebase is much clearer after all the tests passed. To achieve the requirements %which assigned by Stephen, we should first write requirement analysis report (or RFP requirement for Proposal) at the %beginning and then write the acceptance tests. We can monitor the conditions and coverage of the tests by IntelliJ %Coverage Report.
 %Before we started refactoring it, itÕs quite important to make our code more like natural language by taking the advantages %of domain specific language. During refactoring, we did tests and build with Ant and integrated by Jenkins to make sure %every change we made was correct. WhatÕs more, Jenkins will send us emails if our jobs are failed.
+>>>>>>> 66e2eece7e4bd1a6117f34225a31cbaa8ec9b8d0
 
 %As we assumed that the project might be re-engineered by others in the future, we divided it into different modules and DSL %might give a clear concept of our code. (I think if we add some proposals, such as requirement or tests, will make this part %more brilliant. Products armed with reports are much more easier for future developers. And it may add some points.)
 % \blindtext

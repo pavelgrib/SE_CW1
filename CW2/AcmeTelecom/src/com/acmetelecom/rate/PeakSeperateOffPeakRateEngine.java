@@ -1,6 +1,6 @@
 package com.acmetelecom.rate;
 
-import com.acmetelecom.Call;
+import com.acmetelecom.Transaction;
 import com.acmetelecom.Cost;
 import com.acmetelecom.customer.Tariff;
 import java.math.BigDecimal;
@@ -34,7 +34,7 @@ public class PeakSeperateOffPeakRateEngine implements RateEngine {
     }
 
     @Override
-    public Cost calculateCost(Call call, Tariff tariff){
+    public Cost calculateCost(Transaction call, Tariff tariff){
         BigDecimal cost = BigDecimal.ZERO;
         int[] duration = calculateDuration(call);
 
@@ -45,7 +45,7 @@ public class PeakSeperateOffPeakRateEngine implements RateEngine {
         return new Cost(cost);
     }
 
-    public int[] calculateDuration(Call call) {
+    public int[] calculateDuration(Transaction call) {
         int[] duration = new int[2]; // int array to store peak and offpeak durations
 
         DaytimePeakPeriod daytimePeakPeriod = new DaytimePeakPeriod(startHour, endHour);

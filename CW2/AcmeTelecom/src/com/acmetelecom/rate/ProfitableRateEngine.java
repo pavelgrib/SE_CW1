@@ -1,6 +1,6 @@
 package com.acmetelecom.rate;
 
-import com.acmetelecom.Call;
+import com.acmetelecom.Transaction;
 import com.acmetelecom.Cost;
 import com.acmetelecom.customer.Tariff;
 
@@ -24,7 +24,7 @@ public class ProfitableRateEngine implements RateEngine {
     }
 
     @Override
-    public Cost calculateCost(Call call, Tariff tariff) {
+    public Cost calculateCost(Transaction call, Tariff tariff) {
             BigDecimal cost = BigDecimal.ZERO;
             DaytimePeakPeriod peakPeriod = new DaytimePeakPeriod();
             if (peakPeriod.offPeak(call.startTime()) && peakPeriod.offPeak(call.endTime()) && call.durationSeconds() < 12 * 60 * 60) {
@@ -35,6 +35,4 @@ public class ProfitableRateEngine implements RateEngine {
         cost = cost.setScale(0, RoundingMode.HALF_UP);
         return new Cost(cost);
     }
-
-
 }

@@ -1,6 +1,6 @@
 package com.acmetelecom.rate;
 
-import com.acmetelecom.Call;
+import com.acmetelecom.Transaction;
 import com.acmetelecom.Cost;
 import com.acmetelecom.customer.Tariff;
 
@@ -12,6 +12,6 @@ import com.acmetelecom.customer.Tariff;
  */
 public interface RateEngine {
 
-    public Cost calculateCost(Call call, Tariff tariff);
+    public Cost calculateCost(Transaction call, Tariff tariff);
 
 }
