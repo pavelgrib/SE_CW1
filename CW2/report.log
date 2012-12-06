@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009) (format=pdflatex 2012.3.3)  5 DEC 2012 10:27
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009) (format=pdflatex 2012.3.3)  6 DEC 2012 11:40
 entering extended mode
  %&-line parsing enabled.
 **report.tex
@@ -264,21 +264,25 @@ File: Original_Structure.png Graphic file (type png)
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [2]
-Overfull \hbox (6.10014pt too wide) in paragraph at lines 80--81
-[]\T1/cmtt/m/n/12 CentralCustomerDatabase \T1/cmr/m/n/12 and []\T1/cmtt/m/n/12 
-CentralTarriffDatabases \T1/cmr/m/n/12 in []\T1/cmtt/m/n/12 BillingSystem \T1/c
-mr/m/n/12 class,
+Overfull \hbox (32.87424pt too wide) in paragraph at lines 81--82
+\T1/cmr/m/n/12 ther-more, the ex-ter-nal classes []\T1/cmtt/m/n/12 CentralCusto
+merDatabase \T1/cmr/m/n/12 and []\T1/cmtt/m/n/12 CentralTarriffDatabases
  []
 
 [3 <./Original_Structure.png>]
 <structure_after_refactoring.png, id=20, 577.15625pt x 275.0275pt>
 File: structure_after_refactoring.png Graphic file (type png)
 
-<use structure_after_refactoring.png> [4 <./structure_after_refactoring.png>]
-[5] <fit-cases.png, id=31, 513.41812pt x 274.02374pt>
+<use structure_after_refactoring.png>
+Overfull \hbox (19.98009pt too wide) in paragraph at lines 95--104
+[]\T1/cmtt/m/n/12 BillingSystemLogical \T1/cmr/m/n/12 and made a rate cal-cu-la
+-tor class called []\T1/cmtt/m/n/12 ProfitableRateEngine\T1/cmr/m/n/12 .
+ []
+
+[4 <./structure_after_refactoring.png>] [5]
+<fit-cases.png, id=31, 513.41812pt x 274.02374pt>
 File: fit-cases.png Graphic file (type png)
- <use fit-cases.png>
-[6 <./fit-cases.png (PNG copy)>]
+ <use fit-cases.png> [6 <./fit-cases.png (PNG copy)>]
 <FIT-result-before-change.png, id=40, 645.41125pt x 330.23375pt>
 File: FIT-result-before-change.png Graphic file (type png)
 
@@ -287,42 +291,42 @@ File: FIT-result-before-change.png Graphic file (type png)
 File: FIT-result-after-change.png Graphic file (type png)
 
 <use FIT-result-after-change.png>
-Overfull \hbox (26.4072pt too wide) in paragraph at lines 170--171
+Overfull \hbox (26.4072pt too wide) in paragraph at lines 172--173
  [][] 
  []
 
 [7 <./FIT-result-before-change.png> <./FIT-result-after-change.png>]
-<development_process.png, id=48, 484.209pt x 249.0906pt>
-File: development_process.png Graphic file (type png)
+<development_process_new.png, id=48, 986.68625pt x 502.87875pt>
+File: development_process_new.png Graphic file (type png)
 
-<use development_process.png> [8 <./development_process.png>] [9] (./report.aux
-) ) 
+<use development_process_new.png> [8 <./development_process_new.png (PNG copy)>
+] [9] (./report.aux) ) 
 Here is how much of TeX's memory you used:
  4104 strings out of 493773
- 54987 string characters out of 3145347
- 136488 words of memory out of 3000000
+ 55007 string characters out of 3145347
+ 137488 words of memory out of 3000000
  7323 multiletter control sequences out of 15000+200000
  19130 words of font info for 55 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
  41i,10n,40p,1208b,1140s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/local/texlive/2009/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc
-}</usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb>
-</usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></
-usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></us
-r/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr
-/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/l
-ocal/texlive/2009/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></usr/loc
-al/texlive/2009/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local
-/texlive/2009/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/t
-exlive/2009/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/tex
-live/2009/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/texli
-ve/2009/texmf-dist/fonts/type1/public/cm-super/sfrm2488.pfb></usr/local/texlive
-/2009/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/local/texlive/2
-009/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb></usr/local/texlive/200
-9/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on report.pdf (9 pages, 531114 bytes).
+{/usr/local/texlive/2009/texmf-dist/fonts/enc/dvips/cm-su
+per/cm-super-t1.enc}</usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmmi12.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmmi8.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmr12.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmsy10.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmsy8.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/cm-super/sfb
+x1000.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/cm-super/sfbx1
+728.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/cm-super/sfrm100
+0.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/cm-super/sfrm1200.
+pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pf
+b></usr/local/texlive/2009/texmf-dist/fonts/type1/public/cm-super/sfrm2488.pfb>
+</usr/local/texlive/2009/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></
+usr/local/texlive/2009/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb></us
+r/local/texlive/2009/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
+Output written on report.pdf (9 pages, 495244 bytes).
 PDF statistics:
- 101 PDF objects out of 1000 (max. 8388607)
+ 100 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  31 words of extra memory for PDF output out of 10000 (max. 10000000)
 
