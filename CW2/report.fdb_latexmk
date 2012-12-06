@@ -1,5 +1,5 @@
 # Fdb version 2
-["pdflatex"] 1354703242 "report.tex" "report.pdf" "report" 
+["pdflatex"] 1354794038 "report.tex" "report.pdf" "report" 
   "/usr/local/texlive/2009/texmf-dist/tex/context/base/supp-pdf.mkii" 1251025892 71625 fad1c4b52151c234b6873a255b0ad6b3 ""
   "/usr/local/texlive/2009/texmf-dist/tex/generic/oberdiek/etexcmds.sty" 1267408169 5670 cacb018555825cfe95cd1e1317d82c1d ""
   "/usr/local/texlive/2009/texmf-dist/tex/generic/oberdiek/ifluatex.sty" 1267574363 6720 f4d30ea8e099ccc805d84ec1adf60aa2 ""
@@ -42,8 +42,8 @@
   "FIT-result-after-change.png" 1354645406 81485 06ba69db4cac629abab83bc6bb679ad1 ""
   "FIT-result-before-change.png" 1354645406 81855 260ca88b75d9516929d6aeae735d5854 ""
   "Original_Structure.png" 1354645406 38993 cd69d03a2088624c9acbe3174dc2534f ""
-  "development_process.png" 1354654568 151945 ccd41107aaf1a1cecd17030b7f75ec87 ""
+  "development_process_new.png" 1354794002 77305 cd28ca5e4d746bde0e0c8d64e4803952 ""
   "fit-cases.png" 1354645406 61766 779d35582e6529ecc46e77a580f4f0d4 ""
-  "report.aux" 1354703244 1882 3558ce9f554d5e5b6d3090789785cec0 ""
-  "report.tex" 1354703241 19877 7c6025f6d8d611e529214ce9151dc1ff ""
+  "report.aux" 1354794039 1882 3558ce9f554d5e5b6d3090789785cec0 ""
+  "report.tex" 1354794035 20321 7cfdf18f1fed426663bab8e5e2ca38dd ""
   "structure_after_refactoring.png" 1354654568 15934 7ba60cb2683045154ecb6be33d90402b ""
