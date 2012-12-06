@@ -1,4 +1,4 @@
-\documentclass[a4paper,12pt,oneside,final]{article}
+\documentclass[a4paper,11pt,oneside,final]{article}
 \usepackage[pdftex]{graphicx}
 \usepackage[T1]{fontenc}
 \usepackage{titlesec, color}
@@ -36,7 +36,7 @@ frame=trBL,
 \addtolength{\leftmargin}{#1}%
 \addtolength{\rightmargin}{#2}%
 }\item }{\end{list}}
-\marginsize{30mm}{30mm}{20mm}{20mm}
+\marginsize{30mm}{30mm}{18mm}{18mm}
 \definecolor{gray75}{gray}{0.75}
 \newcommand{\hsp}{\hspace{20pt}}
 \author{
@@ -57,9 +57,9 @@ frame=trBL,
 
 \section{Introduction} % paul
 \paragraph{}
-This report covers the analysis, testing, refactoring, and re-engineering of the AcmeTelecom billing system.  We saw our responsibility as two-fold: to build a well-tested, easy to maintain, coherent piece of software, and to use that software to implement a billing algorithm which fairly bills clients according to the time they spent calling during peak and off-peak times.  We relied heavily on Test Driven Development (TDD) practices in the way we devised tests, using unit tests to assert the state of our system, and mock tests to verify its behaviour.  To put in place tests for the initial code base, we were forced to make decisions about design patterns present (such as the singleton pattern in \verb+HtmlPrinter+) as well as make heavy use of interfaces to allow the JMock libraries to interact with out code.  Once satisfied with the initial functionality, we wrote integration tests and opened the development process to the business expert by writing a DSL around the components most responsible for how the billing system determines rates for customers.
+This report covers the analysis, testing, refactoring, and re-engineering of the AcmeTelecom billing system.  We saw our responsibility as two-fold: to build a well-tested, easy to maintain, coherent piece of software, and to use that software to implement a billing algorithm which fairly bills clients according to the time they spent calling during peak and off-peak times.  We relied heavily on Test Driven Development (TDD) practices in the way we devised tests, using unit tests to assert the state of our system, and mock tests to verify its behaviour.  We made heavy use of interfaces to allow JMock to interact with out code.  Once satisfied with the initial functionality, we wrote integration tests and a DSL around the components most responsible for how the billing system determines rates for customers.
 \paragraph{}
-We used these specifications to guide us in the design phase, where we ultimately chose to preserve the structure of the \verb+BillingSystem+ object as the class which is the central component collecting call information and passing them on to the \verb+BillGenerator+ rather than deciding what those calls should cost.  We externalised that business logic by putting it in a separate class, thus making the original class more cohesive and simplifying the process to incorporate future changes.  We used a modern version control system (\emph{git}) and a continous integration server to manage the testing framework and automatically build after each commit.  Dependency matrix analysis helped to gain a big-picture understanding of the codebase without reading every line.
+We used these specifications to guide us in the design phase, externalising the business logic by putting it in a separate class, thus making the original class more cohesive and simplifying the process of incorporating future changes.  We used a modern version control system (\emph{git}) and a continous integration server to manage the testing framework and automatically build after each commit.  Analysis of code dependancy helped to gain a big-picture understanding of the codebase without reading every line.
 \paragraph{}
 We were also careful not to over-optimize and decided to keep the general design of the system in tact, since it also inter-operates with other external libraries throughout the AcmeTelecom organisation.  If we were to implement a brand new design, we would have loosened the coupling further by using Dependency Inversion model wherever possible and defining how interfaces should communicate rather than how concrete classes should change state.
 
@@ -79,7 +79,7 @@ The original 3-layer architecture is preferable in this case, since it is an in-
 The \verb+CallEvent+ is the basic building block of a \verb+Call+, which consists of a \verb+CallStart+ and a \verb+CallEnd+, which both inherit from \verb+CallEvent+.  The \verb+BillingSystem+ receives method calls to \verb+callInitiated+ and \verb+callCompleted+ and logs them to a \verb+List<>+ object.  A call to the \verb+createCustomerBills+ calculates the costs of each call as it occurs in teh list, and then dispatches this list of \verb+Calls+ to the \verb+BillGenerator+ by invoking \verb+send+.  The \verb+BillGenerator+ uses an \verb+HtmlPrinter+ to output the results into HTML (in this example, to \verb+System.out+).  Other classes, such as \verb+MoneyFormatter+ and \verb+DaytimePeakPeriod+ act as helper classes.
 
 \section{Refactoring} % fred (maybe and paul)
-To write tests, we first needed to extract interfaces to objects requiring tests.  Furthermore, the external classes \verb+CentralCustomerDatabase+ and \verb+CentralTarriffDatabases+ and the local \verb+HtmlPrinter+ use the singleton pattern, which makes the constructor private and does not allow us to test their functionality directly.  Another issue we faced is the code's dependency on concretion, which causes high coupling.  Further difficult in testing calls also arose in the way the system handled timestamps.  It relied on the system clock, thus not allowing us to test calls without waiting for a specified passage of time.
+To write tests, we first needed to extract interfaces to objects requiring tests.  Furthermore, the external database classes and the local \verb+HtmlPrinter+ use the singleton pattern, which makes the constructor private and does not allow us to test their functionality directly.  Another issue we faced is the code's dependency on concretion, which causes high coupling.  Further difficult in testing calls also arose in the way the system handled timestamps.  It relied on the system clock, thus not allowing us to test calls without waiting for a specified passage of time.
 \paragraph{}
 We began with creating \verb+FakeCallStart+ and \verb+FakeCallEnd+ classes, allowing us to initialise them with specific timestamps, which is useful for testing calls with pre-specified time periods.  We then extracted an interfaces for \verb+BillGenerator+, \verb+BillingSystem+ and, allowing us to test behaviour of classes which depend on them via mock tests.  
 \paragraph{}
@@ -92,8 +92,7 @@ Below is the code we use to create a billing system:
                     CentralCustomerDatabase.getInstance()
                     ,CentralTariffDatabase.getInstance()
                     ,new BillGenerator(HtmlPrinter.getInstance())
-                    ,new PeakSeperateOffPeakRateEngine());
-    }
+                    ,new PeakSeperateOffPeakRateEngine()); }
 \end{lstlisting}
 The dependency on concretion is reduced by introducing interfaces between coupled classes. We extract four main methods of \verb+BillingSystem+ into \verb+Biller+ interface. \verb+BillingSystem+ and \verb+BillingSystemLogical+ both implementing this interface.  Messages and requests sent to \verb+BillingSystem+ are passed to \verb+BillingSystemLogical+ for specific operation. We extract a \verb+Generator+ interface out of \verb+BillGenerator+ for later fake testing and mock testing. A part of rate calculation code was pulled out of \verb+BillingSystemLogical+ and made a rate calculator class called \verb+ProfitableRateEngine+. Then we create an interface out from it called \verb+RateEngine+. The core of our new billing system, which is a rate engine, is a class implementing this \verb+RateEngine+ interface.
 \begin{figure}[!h]
@@ -117,8 +116,21 @@ We wrote the following mock tests:
 \item BillGeneratorMockTest to ensure that it generates a bill with different combinations of calls.
 \item CallEvent to ensure that when a call event happens, the billing system is aware of it
 \item BillingSystemLogical to make sure that the correct bills are generated when we vary the number of customers who make calls and the number of calls they make
-\item
 \end{itemize}
+There were further classes which required unit testing, such as those in the DSL package.  Lastly, we tested the \verb+HtmlPrinter+ by passing in a different \verb+PrintStream+ to validate the following properties:
+\begin{itemize}
+\item testValidHtml - verify that output is correctly structured HTML
+\item testCallerDetails - verify that caller details are correcly output
+\item testCallHistory - verify that all call details and costs are correctly printed
+\end{itemize}
+We ran a coverage report for our tests displayed below:
+\begin{figure}[!h]
+\begin{changemargin}{-20mm}{-20mm}
+\center
+\includegraphics[scale=0.60]{test_coverage_report.png}
+\caption{Test Code Coverage for New AcmeTelecom Billing System}
+\end{changemargin}
+\end{figure}
 
 \section{Creating a DSL} % fred
  
@@ -161,17 +173,19 @@ The challenging component of implementing this is the calculation for the call d
 
 \section{Acceptance Tests} % cici and juno
 \paragraph{}
-We adopted the Framework for Integrated Testing (FIT) to conduct our end-to-end testing. The FIT html code specifies 9 different tests to account for different starting points, ending points, and durations (As shown below). This covers all possible scenarios in a 24 hour period.
+We adopted the Framework for Integrated Testing (FIT) to conduct our end-to-end testing. The FIT html code specifies 9 different tests to account for different starting points, ending points, and durations (Figure ~\ref{fig:fit_cases}). This covers all possible scenarios in a 24 hour period.
 \begin{figure}[!h]
 \begin{changemargin}{-20mm}{-20mm}
 \center
 \includegraphics[scale=0.70]{fit-cases.png}
 \caption{Acceptance-Test Scenario (assuming 7:00-19:00 peak period)}
+\label{fig:fit_cases}
 \end{changemargin}
 \end{figure}
-By default, the requirement documents initialise the peak time to start at 7:00:00 and end at 19:00:00. A customer information table is given to represent all customers that are eligible to have a bill. Different calls are specified in the Call table, which simulates the call process. The last table shows the bills and this is the table that will be examed by the test. In order to execute FIT test, we wrote some classes to parse these tables. 
-\begin{center}
-    \begin{tabular}{ | l | p{8cm} |}
+By default, the requirement documents initialise the peak time to start at 7:00:00 and end at 19:00:00. A customer information table is given to represent all customers that are eligible to have a bill. Different calls are specified in the Call table, which simulates the call process. The last table shows the bills and this is the table that will be examed by the test. In order to execute the FIT test, we wrote some classes to parse these tables (Table ~\ref{tab:fit_tables}). 
+\begin{table}
+    \centering
+    \begin{tabular}{ | l | p{9.5cm} |}
     \hline
     Class Name: &  Description: \\  \hline
     SystemUnderTest  & Create instances for testing \\  \hline
@@ -179,14 +193,15 @@ By default, the requirement documents initialise the peak time to start at 7:00:
     GivenPeakPeriod  & Set the peak time period \\  \hline
     GivenTheFollowingCustomer: & Store customer information into FakeCustomerDatabase\\  \hline
     GivenTheseCallsAreMade: & Record calls into billing system \\  \hline
-   TheBillShows: & Generate customer bills for comparison \\
-   \hline
+    TheBillShows: & Generate customer bills for comparison \\
+    \hline
     \end{tabular}
-\end{center}
-
+    \caption{Table of Classes Used to Parse FIT Tables}
+    \label{tab:fit_tables}
+\end{table}
 \paragraph{}
-We also added three fake classes \verb+FakeCustomerDatabase+, \verb+FakeGenerator+, and \verb+FakePrinter+, to facilitate our FIT test. This is because \verb+CentralCustomerDatabase+ is externally implemented using a singleton pattern, and does not allow instantiation in a testing environment. While there is a \verb+CustomerDatabase+ interface, we created our own fake database implementation (with an \verb+ArrayList+ underlying data structure) to save customer information for FIT purposes. \verb+FakeGenerator+ and \verb+FakePrinter+ are created to provide the table output format in the requirement.
-\begin{figure}
+We also added three fake classes \verb+FakeCustomerDatabase+, \verb+FakeGenerator+, and \verb+FakePrinter+, to facilitate our FIT test. This is because \verb+CentralCustomerDatabase+ is externally implemented using a singleton pattern, and does not allow instantiation in a testing environment. While there is a \verb+CustomerDatabase+ interface, we created our own fake database implementation (with an \verb+ArrayList+ underlying data structure) to save customer information for FIT purposes. We needed to create \verb+FakeGenerator+ and \verb+FakePrinter+ as helper classes to provide the table output format in the FIT requirement.
+\begin{figure}[!h]
 \centering
 \mbox{\subfigure{\includegraphics[width=3in]{FIT-result-before-change.png}
 \quad
@@ -204,7 +219,7 @@ As we showed in Figure ~\ref{fig:fit_results}, most of the FIT scenario tests fa
 % \includegraphics[scale=1]{file_name.jpg}
 % \caption{Caption string}
 % \end{changemargin}
-% \end{figure}i
+% \end{figure}
 
 \section{Conclusions and Recommendations} % leah
 \paragraph{}
@@ -223,6 +238,7 @@ One of the problems we encountered was in the refactoring stage of the developme
 %//The continuous line means product after tests (solid and strongly-structured)
 %//This image can be modified if anyone wants to change it~
 
+Below is the outline of the development process we undertook to go from untestable legacy code to a final product:
 \begin{figure}[!h]
 \begin{changemargin}{-20mm}{-20mm}
 \center
@@ -230,7 +246,9 @@ One of the problems we encountered was in the refactoring stage of the developme
 \caption{Development Process}
 \end{changemargin}
 \end{figure} 
+Here, text inside the loop lists the tools we used, dashed lines represent untested code (at that stage), changing colors represent adding of features, and overall shape represents growth of the code base.
 
+For future development, we suggest the creating of a detailed documentation of every object, field, and method, potentially using the \emph{Doxygen} tool.  Further functionality suggestions include creating separate bills for each customer, and adding a document database solution (such as MongoDB) to keep these records going forward.
 
 %At first we found the legacy codebase was not modular or easily testable after analysis with the help of IntelliJ Dependency %Matrix. We had to break the dependencies and create new interfaces to do unit tests of the main methods and %functionalities. Then the shape of the codebase is much clearer after all the tests passed. To achieve the requirements %which assigned by Stephen, we should first write requirement analysis report (or RFP requirement for Proposal) at the %beginning and then write the acceptance tests. We can monitor the conditions and coverage of the tests by IntelliJ %Coverage Report.
 %Before we started refactoring it, it’s quite important to make our code more like natural language by taking the advantages %of domain specific language. During refactoring, we did tests and build with Ant and integrated by Jenkins to make sure %every change we made was correct. What’s more, Jenkins will send us emails if our jobs are failed.
