@@ -4,13 +4,8 @@ import com.acmetelecom.Biller;
 import com.acmetelecom.Callee;
 import com.acmetelecom.Caller;
 import junit.framework.TestCase;
-import com.acmetelecom.Callee;
-import com.acmetelecom.Caller;
-
-import junit.framework.TestCase;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
-import org.jmock.States;
 import org.jmock.integration.junit4.JMock;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,6 +17,10 @@ import org.junit.runner.RunWith;
  * Time: 4:05 PM
  * To change this template use File | Settings | File Templates.
  */
+
+/*
+Mock test for CallEvent class
+ */
 @RunWith(JMock.class)
 public class CallEventMockTest extends TestCase {
 
@@ -31,6 +30,11 @@ public class CallEventMockTest extends TestCase {
 
     Mockery context = new Mockery();
     Biller bs = context.mock(Biller.class);
+
+
+    /*
+    Test the communication between a biller and a CallEvent when callInitiated() method is called
+    */
     @Test
     public void TestCallStarted() {
 
@@ -44,6 +48,9 @@ public class CallEventMockTest extends TestCase {
         bs.callInitiated(caller, callee);
     }
 
+    /*
+    Test the communication between a biller and a CallEvent when callComplete() method is called
+     */
     @Test
     public void TestCallEnded() throws Exception {
         context.checking(new Expectations() {{

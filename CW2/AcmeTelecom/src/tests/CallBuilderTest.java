@@ -21,6 +21,10 @@ import static junit.framework.TestCase.assertEquals;
  * Time: 01:34
  * To change this template use File | Settings | File Templates.
  */
+
+/*
+Unit test for CallBuilder class
+ */
 public class CallBuilderTest {
 
     CallStart start = CallStartBuilder.aCallStart().withCaller("Alice").withCallee("Bob").withStartTime(new Long(1990*1000)).build();
